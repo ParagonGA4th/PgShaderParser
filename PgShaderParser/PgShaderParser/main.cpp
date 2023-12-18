@@ -1,5 +1,6 @@
 #include "PgApp.h"
 #include "TextHelper.h"
+#include "PgEnums.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -92,7 +93,7 @@ int main(int, char**)
 			ImGui::PushFont(bigFont);
 			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 75.f)))
 			{
-				tApp->OpenFileButtonPressed();
+				tApp->OpenFileButtonPressed(Pg::eShaderType::_VS);
 			}
 			ImGui::SameLine();
 			if (ImGui::Button(T_KR("매터리얼 저장"), ImVec2(150.f, 75.f)))
@@ -106,12 +107,22 @@ int main(int, char**)
 			}
 			ImGui::PopFont();
 
-			std::string tCurShaderPath = "현재 셰이더 경로 : ";
-			tCurShaderPath.append(tApp->GetCurrentShaderPath());
-			ImGui::Text(T_KR(tCurShaderPath), tApp->GetCurrentShaderPath());
+			std::string tCurShaderPathVS = "현재 VS 경로 : ";
+			std::string tToAddVS;
+			tToAddVS.assign(tApp->GetCurrentVertexShaderPath().begin(), tApp->GetCurrentVertexShaderPath().end());
+			tCurShaderPathVS.append(tToAddVS);
+			ImGui::Text(T_KR(tCurShaderPathVS), tApp->GetCurrentVertexShaderPath());
+
+			std::string tCurShaderPathPS = "현재 PS 경로 : ";
+			std::string tToAddPS;
+			tToAddPS.assign(tApp->GetCurrentPixelShaderPath().begin(), tApp->GetCurrentPixelShaderPath().end());
+			tCurShaderPathPS.append(tToAddPS);
+			ImGui::Text(T_KR(tCurShaderPathPS), tApp->GetCurrentPixelShaderPath());
 			//
 			std::string tCurMaterialPath = "현재 매터리얼 경로 : ";
-			tCurMaterialPath.append(tApp->GetCurrentMaterialPath());
+			std::string tToAddMat;
+			tToAddMat.assign(tApp->GetCurrentMaterialPath().begin(), tApp->GetCurrentMaterialPath().end());
+			tCurMaterialPath.append(tToAddMat);
 			ImGui::Text(T_KR(tCurMaterialPath), tApp->GetCurrentMaterialPath());
 
 			ImGui::PopFont();

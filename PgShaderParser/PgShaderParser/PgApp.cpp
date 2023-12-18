@@ -4,7 +4,7 @@
 namespace Pg
 {
 	PgApp::PgApp() 
-		: _currentShaderPath("DefaultShaderPath"), _currentMaterialPath("DefaultMaterialPath")
+		: _currentVSPath(L"Default_VSPath"), _currentPSPath(L"Default_PSPath"), _currentMaterialPath(L"DefaultMaterialPath")
 	{
 		
 	}
@@ -31,9 +31,9 @@ namespace Pg
 		CoUninitialize();
 	}
 
-	void PgApp::OpenFileButtonPressed()
+	void PgApp::OpenFileButtonPressed(eShaderType shaderType)
 	{
-		ShowOpenFileDialog();
+		ShowOpenFileDialog(shaderType);
 	}
 
 	void PgApp::SaveFileButtonPressed()
@@ -46,7 +46,7 @@ namespace Pg
 		ShowNewFileDialog();
 	}
 
-	void PgApp::ShowOpenFileDialog()
+	void PgApp::ShowOpenFileDialog(eShaderType shaderType)
 	{
 		// Common Item Dialog 인터페이스 생성
 		HRESULT hr;
@@ -90,8 +90,16 @@ namespace Pg
 			std::wstring wString;
 			wString.append(&filePath[0]);
 
-			_currentShaderPath.clear();
-			_currentShaderPath.append(wString.begin(), wString.end());
+			if (shaderType == eShaderType::_VS)
+			{
+				_currentVSPath.clear();
+				_currentVSPath.append(wString);
+			}
+			else if (shaderType == eShaderType::_PS)
+			{
+				_currentPSPath.clear();
+				_currentPSPath.append(wString));
+			}
 		}
 
 		itemDialog->Release();
@@ -148,7 +156,7 @@ namespace Pg
 
 	void PgApp::ShowNewFileDialog()
 	{
-
+		
 	}
 
 }

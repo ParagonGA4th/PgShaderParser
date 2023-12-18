@@ -6,6 +6,8 @@
 #include <string>
 #include <memory>
 
+#include "PgEnums.h"
+
 namespace Pg
 {
 	class ShaderParser;
@@ -23,18 +25,19 @@ namespace Pg
 
 	public:
 		//IMGUI¿Í ±³·ù
-		void OpenFileButtonPressed();
+		void OpenFileButtonPressed(eShaderType shaderType);
 		void SaveFileButtonPressed();
 		void NewFileButtonPressed();
 
-		std::string GetCurrentShaderPath() { return _currentShaderPath; }
-		std::string GetCurrentMaterialPath() { return _currentMaterialPath; }
+		std::wstring GetCurrentVertexShaderPath() { return _currentVSPath; }
+		std::wstring GetCurrentPixelShaderPath() { return _currentPSPath; }
+		std::wstring GetCurrentMaterialPath() { return _currentMaterialPath; }
 
 		bool IsNowAffectShaderPath() { return _isNowAffectShader; }
 		bool IsNowAffectMaterialPath() { return _isNowAffectMaterial; }
 
 	private:
-		void ShowOpenFileDialog();
+		void ShowOpenFileDialog(eShaderType shaderType);
 		void ShowSaveFileDialog();
 		void ShowNewFileDialog();
 
@@ -42,8 +45,9 @@ namespace Pg
 		std::unique_ptr<ShaderParser> _shaderParser;
 
 	private:
-		std::string _currentShaderPath;
-		std::string _currentMaterialPath;
+		std::wstring _currentVSPath;
+		std::wstring _currentPSPath;
+		std::wstring _currentMaterialPath;
 
 		bool _isNowAffectShader = true;
 		bool _isNowAffectMaterial = true;

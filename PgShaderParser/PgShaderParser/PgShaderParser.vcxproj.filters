@@ -101,5 +101,8 @@
     <ClInclude Include="PgData.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="PgEnums.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,8 @@ namespace Pg
 		void Initialize();
 		void Finalize();
 
-		bool Load(const std::string shaderPath);
+		bool LoadVertexShader(const std::wstring& shaderPath);
+		bool LoadPixelShader(const std::wstring& shaderPath);
 		void Reset();
 
 		//Return Val : 가져오는 것을 성공했는지

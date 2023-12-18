@@ -151,6 +151,7 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="PgData.h" />
+    <ClInclude Include="PgEnums.h" />
     <ClInclude Include="ShaderParser.h" />
     <ClInclude Include="TextHelper.h" />
     <ClInclude Include="pugiconfig.hpp" />
