@@ -13,6 +13,15 @@
     <Filter Include="Application">
       <UniqueIdentifier>{15ce7722-4664-4354-b90d-c68966eb5be8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TextHelper">
+      <UniqueIdentifier>{66e0e155-2340-474b-a604-3ec005a93d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderParser">
+      <UniqueIdentifier>{3b65999b-e0c4-4ce0-8e03-a82f6b83cc37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{74f1c4df-787a-426e-8c53-e2003e03de6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="pugixml.cpp">
       <Filter>PugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TextHelper.cpp">
+      <Filter>TextHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderParser.cpp">
+      <Filter>ShaderParser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="pugixml.hpp">
       <Filter>PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="TextHelper.h">
+      <Filter>TextHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderParser.h">
+      <Filter>ShaderParser</Filter>
+    </ClInclude>
+    <ClInclude Include="PgData.h">
+      <Filter>DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

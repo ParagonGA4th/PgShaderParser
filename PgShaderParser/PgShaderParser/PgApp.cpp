@@ -1,8 +1,10 @@
 #include "PgApp.h"
+#include "ShaderParser.h"
 
 namespace Pg
 {
-	PgApp::PgApp()
+	PgApp::PgApp() 
+		: _currentShaderPath("DefaultShaderPath"), _currentMaterialPath("DefaultMaterialPath")
 	{
 		
 	}
@@ -39,9 +41,9 @@ namespace Pg
 		ShowSaveFileDialog();
 	}
 
-	void PgApp::EditFileButtonPressed()
+	void PgApp::NewFileButtonPressed()
 	{
-		ShowEditFileDialog();
+		ShowNewFileDialog();
 	}
 
 	void PgApp::ShowOpenFileDialog()
@@ -144,7 +146,7 @@ namespace Pg
 		itemDialog->Release();
 	}
 
-	void PgApp::ShowEditFileDialog()
+	void PgApp::ShowNewFileDialog()
 	{
 
 	}

@@ -1,4 +1,5 @@
 #include "PgApp.h"
+#include "TextHelper.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -74,10 +75,13 @@ int main(int, char**)
 
 		//Tool Controls
 		{
-			ImGui::SetNextWindowSize(ImVec2(480.f, 400.f));
-			ImGui::Begin("Tool Controls");                          // Create a window called "Hello, world!" and append into it.
+			ImGui::SetNextWindowPos(ImVec2(10.f, 10.f));
+			ImGui::SetNextWindowSize(ImVec2(480.f, 200.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
 			ImGui::PushFont(smallFont);
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+			ImGui::Begin(T_KR("툴 컨트롤러"));
+			ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
 			//ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 			//ImGui::Checkbox("Another Window", &show_another_window);
 
@@ -86,30 +90,81 @@ int main(int, char**)
 
 			//Render Buttons
 			ImGui::PushFont(bigFont);
-			if (ImGui::Button("Open Material", ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 75.f)))
 			{
 				tApp->OpenFileButtonPressed();
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Save Material", ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("매터리얼 저장"), ImVec2(150.f, 75.f)))
 			{
 				tApp->SaveFileButtonPressed();
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Edit Material", ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("새 매터리얼"), ImVec2(150.f, 75.f)))
 			{
-				tApp->EditFileButtonPressed();
+				tApp->NewFileButtonPressed();
 			}
 			ImGui::PopFont();
-			//ImGui::Text("counter = %d", counter);
+
+			std::string tCurShaderPath = "현재 셰이더 경로 : ";
+			tCurShaderPath.append(tApp->GetCurrentShaderPath());
+			ImGui::Text(T_KR(tCurShaderPath), tApp->GetCurrentShaderPath());
 			//
-			//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-			
+			std::string tCurMaterialPath = "현재 매터리얼 경로 : ";
+			tCurMaterialPath.append(tApp->GetCurrentMaterialPath());
+			ImGui::Text(T_KR(tCurMaterialPath), tApp->GetCurrentMaterialPath());
+
 			ImGui::PopFont();
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
 			ImGui::End();
 		}
 
-		// 3. Show another simple window.
+		{
+			ImGui::SetNextWindowPos(ImVec2(500.f, 10.f));
+			ImGui::SetNextWindowSize(ImVec2(130.f, 200.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
+			ImGui::Begin(T_KR("설정"));
+			ImGui::PushFont(bigFont);
+
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+			ImGui::End();
+		}
+
+
+		if (tApp->IsNowAffectShaderPath())
+		{
+			ImGui::SetNextWindowPos(ImVec2(640.f, 10.f));
+			ImGui::SetNextWindowSize(ImVec2(600.f, 740.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
+			ImGui::Begin(T_KR("셰이더 파라미터"));
+			ImGui::PushFont(smallFont);
+			ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
+
+
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+			ImGui::End();
+		}
+
+		{
+			ImGui::SetNextWindowPos(ImVec2(10.f, 220.f));
+			ImGui::SetNextWindowSize(ImVec2(620.f, 530.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
+			ImGui::Begin(T_KR("자료"));
+			ImGui::PushFont(smallFont);
+
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+			ImGui::End();
+		}
 		//if (ImGui::BeginTable("table1", 3))
 		//{
 		//	ImGui::SetNextWindowSize(ImVec2(480.f, 400.f));

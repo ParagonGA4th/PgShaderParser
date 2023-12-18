@@ -136,6 +136,8 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderParser.cpp" />
+    <ClCompile Include="TextHelper.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="PgApp.cpp" />
   </ItemGroup>
@@ -148,6 +150,9 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="PgData.h" />
+    <ClInclude Include="ShaderParser.h" />
+    <ClInclude Include="TextHelper.h" />
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="PgApp.h" />
