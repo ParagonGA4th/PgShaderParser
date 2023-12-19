@@ -157,7 +157,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialPropertyList.h" />
     <ClInclude Include="PgData.h" />
-    <ClInclude Include="PgEnums.h" />
+    <ClInclude Include="PgDefineEnums.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="ShaderParser.h" />
     <ClInclude Include="TextHelper.h" />

@@ -1,6 +1,10 @@
 #include "PgApp.h"
+#include "ShaderParser.h"
+#include "VertexShader.h"
+#include "Material.h"
+#include "PixelShader.h"
 #include "TextHelper.h"
-#include "PgEnums.h"
+#include "PgDefineEnums.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -11,6 +15,7 @@
 #include <memory>
 #include <dinput.h>
 #include <tchar.h>
+
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -123,15 +128,24 @@ int main(int, char**)
 
 
 			std::wstring tCurShaderPathVS = L"현재 VS 파일 : ";
-			tCurShaderPathVS.append(tApp->GetShaderParser()->);
+			if (tApp->GetShaderParser()->GetVertexShader() != nullptr)
+			{
+				tCurShaderPathVS.append(tApp->GetShaderParser()->GetVertexShader()->GetFileName());
+			}
 			ImGui::Text(T_KR_W(tCurShaderPathVS));
 
 			std::wstring tCurShaderPathPS = L"현재 PS 파일 : ";
-			tCurShaderPathPS.append(tApp->GetCurrentPixelShaderName());
+			if (tApp->GetShaderParser()->GetPixelShader() != nullptr)
+			{
+				tCurShaderPathPS.append(tApp->GetShaderParser()->GetPixelShader()->GetFileName());
+			}
 			ImGui::Text(T_KR_W(tCurShaderPathPS));
 			//
 			std::wstring tCurMaterialPath = L"현재 매터리얼 파일 : ";
-			tCurMaterialPath.append(tApp->GetCurrentMaterialName());
+			if (tApp->GetShaderParser()->GetMaterial() != nullptr)
+			{
+				tCurMaterialPath.append(tApp->GetShaderParser()->GetMaterial()->GetFileName());
+			}
 			ImGui::Text(T_KR_W(tCurMaterialPath));
 
 			ImGui::PopFont();
@@ -168,7 +182,7 @@ int main(int, char**)
 			ImGui::End();
 		}
 
-		if (tApp->IsNowAffectVertexShaderPath())
+		if (tApp->GetShaderParser()->GetVertexShader() != nullptr)
 		{
 			ImGui::SetNextWindowPos(ImVec2(640.f, 10.f));
 			ImGui::SetNextWindowSize(ImVec2(600.f, 350.f));
@@ -185,7 +199,7 @@ int main(int, char**)
 			ImGui::End();
 		}
 
-		if (tApp->IsNowAffectPixelShaderPath())
+		if (tApp->GetShaderParser()->GetPixelShader() != nullptr)
 		{
 			ImGui::SetNextWindowPos(ImVec2(640.f, 370.f));
 			ImGui::SetNextWindowSize(ImVec2(600.f, 380.f));
@@ -207,7 +221,7 @@ int main(int, char**)
 			ImGui::SetNextWindowSize(ImVec2(620.f, 530.f));
 			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
-			ImGui::Begin(T_KR("자료"));
+			ImGui::Begin(T_KR("리셋"));
 			ImGui::PushFont(smallFont);
 
 			ImGui::PopFont();

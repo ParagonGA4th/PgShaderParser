@@ -128,7 +128,7 @@
     <ClInclude Include="PgData.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
-    <ClInclude Include="PgEnums.h">
+    <ClInclude Include="PgDefineEnums.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="PixelShader.h">

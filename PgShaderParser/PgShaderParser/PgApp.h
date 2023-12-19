@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-#include "PgEnums.h"
+#include "PgDefineEnums.h"
 
 namespace Pg
 {
@@ -36,17 +36,9 @@ namespace Pg
 		void ResetVertexShaderButtonPressed();
 		void ResetPixelShaderButtonPressed();
 
-
-	private:
-		void ShowOpenShaderDialog(eShaderType shaderType);
-		void ShowSaveMaterialDialog();
-		void ShowNewMaterialDialog();
-		void ShowSaveAsMaterialDialog();
-		void ShowOpenMaterialDialog();
-
-		void ResetEditor();
-		void ResetVS();
-		void ResetPS();
+		std::wstring GetVSName();
+		std::wstring GetPSName();
+		std::wstring GetMaterialName();
 
 	private:
 		std::unique_ptr<ShaderParser> _shaderParser;

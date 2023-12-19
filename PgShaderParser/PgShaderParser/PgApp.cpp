@@ -1,10 +1,16 @@
 #include "PgApp.h"
 #include "ShaderParser.h"
 
+#include "Material.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
+//#include "MaterialPropertyList.h"
+
 #include <shlwapi.h>;
 #include <shellapi.h>;
 #include <shobjidl.h>
 #include <windows.h>
+
 
 namespace Pg
 {
@@ -23,6 +29,8 @@ namespace Pg
 		// COM 라이브러리 초기화
 		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
 		assert(SUCCEEDED(hr));
+
+		_shaderParser = std::make_unique<ShaderParser>();
 	}
 
 	void PgApp::Loop()
@@ -41,46 +49,6 @@ namespace Pg
 	}
 
 	void PgApp::OpenShaderButtonPressed(eShaderType shaderType)
-	{
-		ShowOpenShaderDialog(shaderType);
-	}
-
-	void PgApp::SaveMaterialButtonPressed()
-	{
-		ShowSaveMaterialDialog();
-	}
-
-	void PgApp::NewMaterialButtonPressed()
-	{
-		ShowNewMaterialDialog();
-	}
-
-	void PgApp::SaveAsMaterialButtonPressed()
-	{
-		ShowSaveAsMaterialDialog();
-	}
-
-	void PgApp::OpenMaterialButtonPressed()
-	{
-		ShowOpenMaterialDialog();
-	}
-
-	void PgApp::ResetEditorButtonPressed()
-	{
-		ResetEditor();
-	}
-
-	void PgApp::ResetVertexShaderButtonPressed()
-	{
-		ResetVS();
-	}
-
-	void PgApp::ResetPixelShaderButtonPressed()
-	{
-		ResetPS();
-	}
-
-	void PgApp::ShowOpenShaderDialog(eShaderType shaderType)
 	{
 		// Common Item Dialog 인터페이스 생성
 		HRESULT hr;
@@ -132,6 +100,7 @@ namespace Pg
 			}
 		}
 
+		///
 		if (filePath != NULL)
 		{
 			std::wstring wString;
@@ -139,20 +108,18 @@ namespace Pg
 
 			if (shaderType == eShaderType::_VS)
 			{
-				_currentVSPath.clear();
-				_currentVSPath.append(wString);
+				_shaderParser->CreateVertexShader(wString);
 			}
 			else if (shaderType == eShaderType::_PS)
 			{
-				_currentPSPath.clear();
-				_currentPSPath.append(wString);
+				_shaderParser->CreatePixelShader(wString);
 			}
 		}
 
 		itemDialog->Release();
 	}
 
-	void PgApp::ShowSaveMaterialDialog()
+	void PgApp::SaveMaterialButtonPressed()
 	{
 		// Common Item Dialog 인터페이스 생성
 		HRESULT hr;
@@ -194,11 +161,8 @@ namespace Pg
 			std::wstring wString;
 			wString = filePath;
 
-			_currentMaterialPath.clear();
-			_currentMaterialPath.append(wString);
-
 			HANDLE hFile = CreateFile(
-				_currentMaterialPath.c_str(),
+				_shaderParser->GetMaterial()->GetFilePath().c_str(),
 				GENERIC_WRITE,
 				0,
 				NULL,
@@ -206,12 +170,14 @@ namespace Pg
 				FILE_ATTRIBUTE_NORMAL,
 				NULL
 			);
+
+			_shaderParser->SaveToXMLFile(_shaderParser->GetMaterial()->GetFilePath());
 		}
 
 		itemDialog->Release();
 	}
 
-	void PgApp::ShowNewMaterialDialog()
+	void PgApp::NewMaterialButtonPressed()
 	{
 		// Create the File Open Dialog object
 		IFileSaveDialog* pFileSaveDialog;
@@ -280,7 +246,8 @@ namespace Pg
 								// Release the allocated memory
 								CoTaskMemFree(pszFolderPath);
 
-								_currentMaterialPath = tFilePath;
+								///Material 만들기.
+								_shaderParser->CreateMaterial(tFilePath);
 							}
 
 							// Release the IShellItem
@@ -289,13 +256,12 @@ namespace Pg
 					}
 				}
 			}
-
 			// Release the File Save Dialog
 			pFileSaveDialog->Release();
 		}
 	}
 
-	void PgApp::ShowSaveAsMaterialDialog()
+	void PgApp::SaveAsMaterialButtonPressed()
 	{
 		// Create the File Open Dialog object
 		IFileSaveDialog* pFileSaveDialog;
@@ -364,7 +330,10 @@ namespace Pg
 								// Release the allocated memory
 								CoTaskMemFree(pszFolderPath);
 
-								_currentMaterialPath = tFilePath;
+								///발동 전에, 우선 정보 저장.
+								std::ifstream inFile(_shaderParser->GetMaterial()->GetFilePath());
+								_shaderParser->CreateMaterial(tFilePath);
+								_shaderParser->CopyToXMLFile(tFilePath, inFile);
 							}
 
 							// Release the IShellItem
@@ -378,7 +347,7 @@ namespace Pg
 		pFileSaveDialog->Release();
 	}
 
-	void PgApp::ShowOpenMaterialDialog()
+	void PgApp::OpenMaterialButtonPressed()
 	{
 		// Common Item Dialog 인터페이스 생성
 		HRESULT hr;
@@ -423,33 +392,61 @@ namespace Pg
 		{
 			std::wstring wString;
 			wString = filePath;
-			_currentMaterialPath = wString;
+			_shaderParser->CreateMaterial(wString);
 		}
 
 		itemDialog->Release();
 	}
 
-	void PgApp::ResetEditor()
+	void PgApp::ResetEditorButtonPressed()
 	{
-		_currentVSPath = DEFAULT_PATH_NULL;
-		_currentPSPath = DEFAULT_PATH_NULL;
-		_currentMaterialPath = DEFAULT_PATH_NULL;
-
-		_isNowAffectVertexShader = false;
-		_isNowAffectPixelShader = false;
-		_isNowAffectMaterial = false;
+		_shaderParser->ResetAll();
 	}
 
-	void PgApp::ResetVS()
+	void PgApp::ResetVertexShaderButtonPressed()
 	{
-		_currentVSPath = DEFAULT_PATH_NULL;
-		_isNowAffectVertexShader = false;
+		_shaderParser->ResetVertexShader();
 	}
 
-	void PgApp::ResetPS()
+	void PgApp::ResetPixelShaderButtonPressed()
 	{
-		_currentPSPath = DEFAULT_PATH_NULL;
-		_isNowAffectPixelShader = false;
+		_shaderParser->ResetPixelShader();
+	}
+
+	std::wstring PgApp::GetVSName()
+	{
+		if (_shaderParser->GetVertexShader())
+		{
+			return _shaderParser->GetVertexShader()->GetFileName();
+		}
+		else
+		{
+			return DEFAULT_PATH_NULL;
+		}
+	}
+
+	std::wstring PgApp::GetPSName()
+	{
+		if (_shaderParser->GetPixelShader())
+		{
+			return _shaderParser->GetPixelShader()->GetFileName();
+		}
+		else
+		{
+			return DEFAULT_PATH_NULL;
+		}
+	}
+
+	std::wstring PgApp::GetMaterialName()
+	{
+		if (_shaderParser->GetMaterial())
+		{
+			_shaderParser->GetMaterial()->GetFileName();
+		}
+		else
+		{
+			return DEFAULT_PATH_NULL;
+		}
 	}
 
 }

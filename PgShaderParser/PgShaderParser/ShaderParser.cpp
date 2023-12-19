@@ -1,15 +1,12 @@
 #include "ShaderParser.h"
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <d3d11shader.h>
+#include "VertexShader.h"
+#include "PixelShader.h"
+#include "Material.h"
 #include <cassert>
-
-#define DEFAULT_PATH_NULL L"NULL"
 
 namespace Pg
 {
 	ShaderParser::ShaderParser()
-		: _currentVSPath(DEFAULT_PATH_NULL), _currentPSPath(DEFAULT_PATH_NULL), _currentMaterialPath(DEFAULT_PATH_NULL)
 	{
 
 	}
@@ -29,36 +26,63 @@ namespace Pg
 		ResetAll();
 	}
 
-	bool ShaderParser::LoadVertexShader(const std::wstring& shaderPath)
+	void ShaderParser::CreateMaterial(const std::wstring& filePath)
 	{
-		//기존에 있던 정보 싹 정리.
-		//Reset();
-		//
-		////HLSL Compile해서 읽어오기.
-		//HRESULT hr = S_OK;
-		//ID3DBlob* tShaderByteCode = nullptr;
-		//ID3DBlob* tIfErrorBlob = nullptr;
-		//
-		////컴파일하는 Flag.
-		//UINT tCompileFlags = 0;
-		//hr = D3DCompileFromFile(shaderPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		//	"VS", "vs_5_0", tCompileFlags, 0, &tShaderByteCode, &tIfErrorBlob);
-		//assert(SUCCEEDED(hr));
-		//
-		////실제 Reflection D3D 코드.
-		//ID3D11ShaderReflection* reflection = nullptr;
-		//
-		//hr = D3DReflect(tShaderByteCode->GetBufferPointer(), 
-		//	tShaderByteCode->GetBufferSize(),
-		//	IID_ID3D11ShaderReflection, reinterpret_cast<void**>(&reflection));
-		//assert(SUCCEEDED(hr));
-
-		return false;
+		ResetMaterial();
+		_material = new Material();
 	}
 
-	bool ShaderParser::LoadPixelShader(const std::wstring& shaderPath)
+	void ShaderParser::CreateVertexShader(const std::wstring& filePath)
 	{
-		return false;
+		ResetVertexShader();
+		_editedVS = new VertexShader(filePath);
+	}
+
+	void ShaderParser::CreatePixelShader(const std::wstring& filePath)
+	{
+		ResetPixelShader();
+		_editedPS = new PixelShader(filePath);
+	}
+
+	void ShaderParser::CopyToXMLFile(const std::wstring& filePath, const std::ifstream& inputFileStream)
+	{
+
+	}
+
+	void ShaderParser::SaveToXMLFile(const std::wstring& filePath)
+	{
+
+	}
+
+	void ShaderParser::ResetMaterial()
+	{
+		if (_material != nullptr)
+		{
+			delete _material;
+		}
+	}
+
+	void ShaderParser::ResetVertexShader()
+	{
+		if (_editedVS != nullptr)
+		{
+			delete _editedVS;
+		}
+	}
+
+	void ShaderParser::ResetPixelShader()
+	{
+		if (_editedPS != nullptr)
+		{
+			delete _editedPS;
+		}
+	}
+
+	void ShaderParser::ResetAll()
+	{
+		ResetMaterial();
+		ResetVertexShader();
+		ResetPixelShader();
 	}
 
 	Pg::Material* ShaderParser::GetMaterial()
@@ -66,13 +90,14 @@ namespace Pg
 		return _material;
 	}
 
-	std::wstring ShaderParser::GetCurrentVertexShaderPath()
+	Pg::VertexShader* ShaderParser::GetVertexShader()
 	{
-		return 
+		return _editedVS;
 	}
 
-	void ShaderParser::ResetAll()
+	Pg::PixelShader* ShaderParser::GetPixelShader()
 	{
-		
+		return _editedPS;
 	}
+
 }

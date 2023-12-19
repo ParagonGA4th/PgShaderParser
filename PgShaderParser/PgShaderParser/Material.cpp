@@ -1,19 +1,10 @@
 #include "Material.h"
 #include <cassert>
+#include <filesystem>
 
 namespace Pg
 {
 	Material::Material()
-	{
-
-	}
-
-	bool Material::LoadVertexShader(const std::wstring& shaderPath)
-	{
-
-	}
-
-	bool Material::LoadPixelShader(const std::wstring& shaderPath)
 	{
 
 	}
@@ -34,7 +25,17 @@ namespace Pg
 
 	bool Material::Generate()
 	{
+		return true;
+	}
 
+	std::wstring Material::GetFilePath()
+	{
+		return _filePath;
+	}
+
+	std::wstring Material::GetFileName()
+	{
+		return std::filesystem::path(_filePath).filename();
 	}
 
 }

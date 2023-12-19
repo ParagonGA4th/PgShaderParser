@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <memory>
+
+struct ID3D11ShaderReflection;
+
 namespace Pg
 {
 	class MaterialPropertyList;
@@ -12,11 +15,16 @@ namespace Pg
 		PixelShader(const std::wstring& path);
 		~PixelShader();
 
-		std::wstring GetFilePath() { return _filePath; }
+		void LoadReflection();
 
+		std::wstring GetFilePath();
+		std::wstring GetFileName();
 	private:
 		std::wstring _filePath;
 		std::unique_ptr<MaterialPropertyList> _matPropList;
+
+	private:
+		::ID3D11ShaderReflection* _reflection;
 	};
 }
 
