@@ -37,6 +37,9 @@
     <Filter Include="ShaderMaterials\Material\MaterialPropertyList">
       <UniqueIdentifier>{62a60de9-be4a-4dea-83ef-6d8c66c4b231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderParser\ID3DInclude">
+      <UniqueIdentifier>{c192d7f1-6693-46ea-839c-3be714edc6cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="MaterialPropertyList.h">
       <Filter>ShaderMaterials\Material\MaterialPropertyList</Filter>
+    </ClInclude>
+    <ClInclude Include="ParagonShaderInclude.h">
+      <Filter>ShaderParser\ID3DInclude</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

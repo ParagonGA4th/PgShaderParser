@@ -23,4 +23,11 @@ namespace Pg
 		return carr;
 	}
 
+	std::wstring TextHelper::AnsiToWString(const char* ansiString)
+	{
+		wchar_t buffer[512];
+		int res = MultiByteToWideChar(CP_ACP, 0, ansiString, -1, buffer, 512);
+		return std::wstring(buffer);
+	}
+
 }

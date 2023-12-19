@@ -34,7 +34,8 @@ namespace Pg
 		ID3DBlob* tIfErrorBlob = nullptr;
 
 		//컴파일하는 Flag.
-		UINT tCompileFlags = 0;
+		UINT tCompileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+
 		//무조건 Shader의 Entry Point = main이 되어야 한다.
 		hr = D3DCompileFromFile(_filePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 			"main", "vs_5_0", tCompileFlags, 0, &tShaderByteCode, &tIfErrorBlob);

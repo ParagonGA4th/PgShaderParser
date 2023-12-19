@@ -8,8 +8,7 @@ namespace Pg
 	public:
 		static std::string TextKR(const std::string& krString);
 		static std::string TextKR_W(const std::wstring& krString);
-
-	
+		static std::wstring AnsiToWString(const char* ansiString);
 	};
 }
 

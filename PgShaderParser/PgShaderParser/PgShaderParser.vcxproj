@@ -156,6 +156,7 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialPropertyList.h" />
+    <ClInclude Include="ParagonShaderInclude.h" />
     <ClInclude Include="PgData.h" />
     <ClInclude Include="PgDefineEnums.h" />
     <ClInclude Include="PixelShader.h" />
