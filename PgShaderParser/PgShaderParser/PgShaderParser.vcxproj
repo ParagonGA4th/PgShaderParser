@@ -136,10 +136,14 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialPropertyList.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="ShaderParser.cpp" />
     <ClCompile Include="TextHelper.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="PgApp.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h" />
@@ -150,13 +154,17 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialPropertyList.h" />
     <ClInclude Include="PgData.h" />
     <ClInclude Include="PgEnums.h" />
+    <ClInclude Include="PixelShader.h" />
     <ClInclude Include="ShaderParser.h" />
     <ClInclude Include="TextHelper.h" />
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="PgApp.h" />
+    <ClInclude Include="VertexShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

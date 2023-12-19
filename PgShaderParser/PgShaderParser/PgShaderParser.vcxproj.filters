@@ -22,6 +22,21 @@
     <Filter Include="DataTypes">
       <UniqueIdentifier>{74f1c4df-787a-426e-8c53-e2003e03de6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ShaderMaterials">
+      <UniqueIdentifier>{a957ffae-b24e-4b00-aa79-5b857d177d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\VertexShader">
+      <UniqueIdentifier>{1a52533a-2326-4e3c-8731-7a1c1b54b499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\PixelShader">
+      <UniqueIdentifier>{74fa0d32-7d96-4043-a6d9-414bbacf7f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Material">
+      <UniqueIdentifier>{03a8be5d-eb72-4365-9f2e-97f11d8c5b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Material\MaterialPropertyList">
+      <UniqueIdentifier>{62a60de9-be4a-4dea-83ef-6d8c66c4b231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +71,18 @@
     </ClCompile>
     <ClCompile Include="ShaderParser.cpp">
       <Filter>ShaderParser</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>ShaderMaterials\PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>ShaderMaterials\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>ShaderMaterials\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialPropertyList.cpp">
+      <Filter>ShaderMaterials\Material\MaterialPropertyList</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +130,18 @@
     </ClInclude>
     <ClInclude Include="PgEnums.h">
       <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>ShaderMaterials\PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>ShaderMaterials\VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>ShaderMaterials\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialPropertyList.h">
+      <Filter>ShaderMaterials\Material\MaterialPropertyList</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

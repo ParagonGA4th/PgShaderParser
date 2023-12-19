@@ -6,11 +6,9 @@
 #include <shobjidl.h>
 #include <windows.h>
 
-#define DEFAULT_PATH_NULL L"NULL"
 namespace Pg
 {
 	PgApp::PgApp()
-		: _currentVSPath(DEFAULT_PATH_NULL), _currentPSPath(DEFAULT_PATH_NULL), _currentMaterialPath(DEFAULT_PATH_NULL)
 	{
 
 	}
@@ -35,6 +33,11 @@ namespace Pg
 	void PgApp::Finalize()
 	{
 		CoUninitialize();
+	}
+
+	Pg::ShaderParser* PgApp::GetShaderParser()
+	{
+		return _shaderParser.get();
 	}
 
 	void PgApp::OpenShaderButtonPressed(eShaderType shaderType)

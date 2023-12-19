@@ -123,7 +123,7 @@ int main(int, char**)
 
 
 			std::wstring tCurShaderPathVS = L"현재 VS 파일 : ";
-			tCurShaderPathVS.append(tApp->GetCurrentVertexShaderName());
+			tCurShaderPathVS.append(tApp->GetShaderParser()->);
 			ImGui::Text(T_KR_W(tCurShaderPathVS));
 
 			std::wstring tCurShaderPathPS = L"현재 PS 파일 : ";
