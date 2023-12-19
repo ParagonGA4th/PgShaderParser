@@ -14,4 +14,13 @@ namespace Pg
 		WideCharToMultiByte(CP_UTF8, 0, warr, -1, carr, 256, NULL, NULL);
 		return carr;
 	}
+
+	std::string TextHelper::TextKR_W(const std::wstring& krString)
+	{
+		char carr[256];
+		memset(carr, '\0', sizeof(carr));
+		WideCharToMultiByte(CP_UTF8, 0, krString.c_str(), -1, carr, 256, NULL, NULL);
+		return carr;
+	}
+
 }

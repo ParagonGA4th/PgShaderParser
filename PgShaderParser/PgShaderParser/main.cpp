@@ -46,7 +46,7 @@ int main(int, char**)
 		io.Fonts->GetGlyphRangesKorean());
 	IM_ASSERT(smallFont != NULL);
 
-	ImFont* bigFont = io.Fonts->AddFontFromFileTTF("../Fonts/Pretendard-Medium.ttf", 25.0f, NULL,
+	ImFont* bigFont = io.Fonts->AddFontFromFileTTF("../Fonts/Pretendard-Medium.ttf", 23.0f, NULL,
 		io.Fonts->GetGlyphRangesKorean());
 	IM_ASSERT(bigFont != NULL);
 
@@ -82,7 +82,7 @@ int main(int, char**)
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
 			ImGui::PushFont(smallFont);
 			ImGui::Begin(T_KR("툴 컨트롤러"));
-			ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
+			//ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
 			//ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 			//ImGui::Checkbox("Another Window", &show_another_window);
 
@@ -91,39 +91,48 @@ int main(int, char**)
 
 			//Render Buttons
 			ImGui::PushFont(bigFont);
-			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 37.5f)))
 			{
-				tApp->OpenFileButtonPressed(Pg::eShaderType::_VS);
+				tApp->OpenMaterialButtonPressed();
 			}
 			ImGui::SameLine();
-			if (ImGui::Button(T_KR("매터리얼 저장"), ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("저장"), ImVec2(150.f, 37.5f)))
 			{
-				tApp->SaveFileButtonPressed();
+				tApp->SaveMaterialButtonPressed();
 			}
 			ImGui::SameLine();
-			if (ImGui::Button(T_KR("새 매터리얼"), ImVec2(150.f, 75.f)))
+			if (ImGui::Button(T_KR("새 매터리얼"), ImVec2(150.f, 37.5f)))
 			{
-				tApp->NewFileButtonPressed();
+				tApp->NewMaterialButtonPressed();
+			}
+			if (ImGui::Button(T_KR("다른 이름으로 저장"), ImVec2(150.f, 37.5f)))
+			{
+				tApp->SaveAsMaterialButtonPressed();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Vertex Shader", ImVec2(150.f, 37.5f)))
+			{
+				tApp->OpenShaderButtonPressed(Pg::eShaderType::_VS);
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Pixel Shader", ImVec2(150.f, 37.5f)))
+			{
+				tApp->OpenShaderButtonPressed(Pg::eShaderType::_PS);
 			}
 			ImGui::PopFont();
 
-			std::string tCurShaderPathVS = "현재 VS 경로 : ";
-			std::string tToAddVS;
-			tToAddVS.assign(tApp->GetCurrentVertexShaderPath().begin(), tApp->GetCurrentVertexShaderPath().end());
-			tCurShaderPathVS.append(tToAddVS);
-			ImGui::Text(T_KR(tCurShaderPathVS), tApp->GetCurrentVertexShaderPath());
 
-			std::string tCurShaderPathPS = "현재 PS 경로 : ";
-			std::string tToAddPS;
-			tToAddPS.assign(tApp->GetCurrentPixelShaderPath().begin(), tApp->GetCurrentPixelShaderPath().end());
-			tCurShaderPathPS.append(tToAddPS);
-			ImGui::Text(T_KR(tCurShaderPathPS), tApp->GetCurrentPixelShaderPath());
+			std::wstring tCurShaderPathVS = L"현재 VS 파일 : ";
+			tCurShaderPathVS.append(tApp->GetCurrentVertexShaderName());
+			ImGui::Text(T_KR_W(tCurShaderPathVS));
+
+			std::wstring tCurShaderPathPS = L"현재 PS 파일 : ";
+			tCurShaderPathPS.append(tApp->GetCurrentPixelShaderName());
+			ImGui::Text(T_KR_W(tCurShaderPathPS));
 			//
-			std::string tCurMaterialPath = "현재 매터리얼 경로 : ";
-			std::string tToAddMat;
-			tToAddMat.assign(tApp->GetCurrentMaterialPath().begin(), tApp->GetCurrentMaterialPath().end());
-			tCurMaterialPath.append(tToAddMat);
-			ImGui::Text(T_KR(tCurMaterialPath), tApp->GetCurrentMaterialPath());
+			std::wstring tCurMaterialPath = L"현재 매터리얼 파일 : ";
+			tCurMaterialPath.append(tApp->GetCurrentMaterialName());
+			ImGui::Text(T_KR_W(tCurMaterialPath));
 
 			ImGui::PopFont();
 			ImGui::PopStyleColor();
@@ -136,8 +145,39 @@ int main(int, char**)
 			ImGui::SetNextWindowSize(ImVec2(130.f, 200.f));
 			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
-			ImGui::Begin(T_KR("설정"));
+			ImGui::Begin(T_KR("조작"));
 			ImGui::PushFont(bigFont);
+
+			if (ImGui::Button(T_KR("전체 리셋"), ImVec2(100.f, 37.5f)))
+			{
+				tApp->ResetEditorButtonPressed();
+			}
+			ImGui::PopFont();
+			ImGui::PushFont(smallFont);
+			if (ImGui::Button(T_KR("버텍스 셰이더 리셋", ImVec2(100.f, 37.5f))))
+			{
+				tApp->ResetVertexShaderButtonPressed();
+			}
+			if (ImGui::Button(T_KR("픽셀 셰이더 리셋", ImVec2(100.f, 37.5f))))
+			{
+				tApp->ResetPixelShaderButtonPressed();
+			}
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+			ImGui::End();
+		}
+
+		if (tApp->IsNowAffectVertexShaderPath())
+		{
+			ImGui::SetNextWindowPos(ImVec2(640.f, 10.f));
+			ImGui::SetNextWindowSize(ImVec2(600.f, 350.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
+			ImGui::Begin(T_KR("버텍스 셰이더 파라미터"));
+			ImGui::PushFont(smallFont);
+			ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
+
 
 			ImGui::PopFont();
 			ImGui::PopStyleColor();
@@ -145,16 +185,15 @@ int main(int, char**)
 			ImGui::End();
 		}
 
-
-		if (tApp->IsNowAffectShaderPath())
+		if (tApp->IsNowAffectPixelShaderPath())
 		{
-			ImGui::SetNextWindowPos(ImVec2(640.f, 10.f));
-			ImGui::SetNextWindowSize(ImVec2(600.f, 740.f));
+			ImGui::SetNextWindowPos(ImVec2(640.f, 370.f));
+			ImGui::SetNextWindowSize(ImVec2(600.f, 380.f));
 			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
-			ImGui::Begin(T_KR("셰이더 파라미터"));
+			ImGui::Begin(T_KR("픽셀 셰이더 파라미터"));
 			ImGui::PushFont(smallFont);
-			ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
+			ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
 
 
 			ImGui::PopFont();
