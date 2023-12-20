@@ -70,7 +70,7 @@ namespace Pg
 		{
 			tShaderStr = L" (Pixel Shader) ";
 		}
-		std::wstring tTitle = L"Choose .hlsl file";
+		std::wstring tTitle = L"Choose .cso file";
 		tTitle.append(tShaderStr);
 		tTitle.append(L"to base off of.");
 
@@ -79,7 +79,7 @@ namespace Pg
 		// 파일 필터 설정: .ppt 확장자 필터
 		COMDLG_FILTERSPEC fileTypes[1];
 
-		fileTypes[0] = { L"Render Shader", L"*.hlsl" };
+		fileTypes[0] = { L"Render Shader", L"*.cso" };
 
 		itemDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
 		itemDialog->SetFileTypeIndex(1); // 기본 확장자 선택 (1부터 시작)

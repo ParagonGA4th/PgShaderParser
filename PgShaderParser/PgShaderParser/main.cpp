@@ -161,7 +161,6 @@ int main(int, char**)
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
 			ImGui::Begin(T_KR("조작"));
 			ImGui::PushFont(bigFont);
-
 			if (ImGui::Button(T_KR("전체 리셋"), ImVec2(100.f, 37.5f)))
 			{
 				tApp->ResetEditorButtonPressed();
@@ -177,6 +176,16 @@ int main(int, char**)
 				tApp->ResetPixelShaderButtonPressed();
 			}
 			ImGui::PopFont();
+
+			ImGui::PushFont(bigFont);
+			ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.2f, 0.1f, 1.f });
+			if (ImGui::Button(T_KR("매터리얼 생성"), ImVec2(120.f, 37.5f)))
+			{
+				//tApp->ResetEditorButtonPressed();
+			}
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+
 			ImGui::PopStyleColor();
 			ImGui::PopStyleColor();
 			ImGui::End();
@@ -221,7 +230,7 @@ int main(int, char**)
 			ImGui::SetNextWindowSize(ImVec2(620.f, 530.f));
 			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
-			ImGui::Begin(T_KR("리셋"));
+			ImGui::Begin(T_KR("매터리얼"));
 			ImGui::PushFont(smallFont);
 
 			ImGui::PopFont();

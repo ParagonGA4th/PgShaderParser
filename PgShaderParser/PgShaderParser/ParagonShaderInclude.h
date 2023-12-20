@@ -3,8 +3,10 @@
 #include <d3d11.h>
 #include <string>
 
+#include "ShaderPath.h"
 #include "TextHelper.h"
 
+///DEPRECATED, .cso 사용.
 namespace Pg
 {
 	//Reference
@@ -27,11 +29,12 @@ namespace Pg
 			//
 		}
 
-		HRESULT Open(D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID* ppData, UINT* pBytes) override
+		_declspec(nothrow) HRESULT __stdcall Open(D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID* ppData, UINT* pBytes) override
 		{
 			//std::wstring filePath;
 			//if (IncludeType == D3D_INCLUDE_LOCAL) //로컬 프로그램 경로
 			//{
+			//	filePath = ";
 			//	filePath = TextHelper::AnsiToWString(pFileName);
 			//}
 			//else if (IncludeType == D3D_INCLUDE_SYSTEM)
@@ -41,7 +44,7 @@ namespace Pg
 			//else
 			//	return E_FAIL;
 			//
-			//if (FileExists(filePath.c_str()) == false)
+			//if ((filePath.c_str()) == false)
 			//	return E_FAIL;
 			//
 			//File file(filePath.c_str(), FileOpenMode::Read);
@@ -52,10 +55,10 @@ namespace Pg
 			//return S_OK;
 		}
 
-		HRESULT Close(LPCVOID pData) override
+		_declspec(nothrow) HRESULT __stdcall Close(LPCVOID pData) override
 		{
-			std::free(const_cast<void*>(pData));
-			return S_OK;
+			//std::free(const_cast<void*>(pData));
+			//return S_OK;
 		}
 
 	private:

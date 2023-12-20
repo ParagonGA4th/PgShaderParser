@@ -5,15 +5,26 @@
 
 #include "PgData.h"
 
+//Constant Buffer 하나에 대응.
+//현재로서는 Material에 Constant Buffer 하나 이상 지원할 이유 X.
+
 namespace Pg
 {
-	class MaterialPropertyList
+	class ConstantBufferPropertyList
 	{
+		friend class BaseShader;
 	public:
-		MaterialPropertyList();
-		~MaterialPropertyList();
+		ConstantBufferPropertyList();
+		~ConstantBufferPropertyList();
 
 		void Reset();
+		void SetByteCount(unsigned int byteCount);
+		unsigned int GetByteCount();
+
+		void SetConstantBufferName(const std::string& cBufName);
+		std::string GetConstantBufferName();
+	public:
+
 	public:
 		//Return Val : 가져오는 것을 성공했는지
 		//매개변수 : 바인딩한 Variable Name / Value.
@@ -24,11 +35,11 @@ namespace Pg
 		bool RetrieveSingleVector2Prop(std::string& varName, float2& value);
 		bool RetrieveSingleVector3Prop(std::string& varName, float3& value);
 		bool RetrieveSingleVector4Prop(std::string& varName, float4& value);
-		bool RetrieveSingleColorProp(std::string& varName, color4& value);
-		bool RetrieveSingleTexture2DProp(std::string& varName, std::string& value);
-		bool RetrieveSingleTextureCubeProp(std::string& varName, std::string& value);
-
+		
 	private:
+		size_t _byteCount = 0;
+		std::string _constantBufferName;
+
 		//차례로 Variable Name / Value
 		std::stack<std::pair<std::string, bool>>		_boolPropList;
 		std::stack<std::pair<std::string, unsigned int>> _uintPropList;
@@ -37,9 +48,6 @@ namespace Pg
 		std::stack<std::pair<std::string, float2>>		_vec2PropList;
 		std::stack<std::pair<std::string, float3>>		_vec3PropList;
 		std::stack<std::pair<std::string, float4>>		_vec4PropList;
-		std::stack<std::pair<std::string, color4>>		_colorPropList;
-		std::stack<std::pair<std::string, std::string>> _texture2DPropList; //Texture 2D -> 텍스쳐 이름을 기록.
-		std::stack<std::pair<std::string, std::string>> _textureCubePropList; //TextureCube -> 텍스쳐 이름을 기록.
 	};
 }
 

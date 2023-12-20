@@ -13,9 +13,6 @@
     <Filter Include="Application">
       <UniqueIdentifier>{15ce7722-4664-4354-b90d-c68966eb5be8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TextHelper">
-      <UniqueIdentifier>{66e0e155-2340-474b-a604-3ec005a93d7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ShaderParser">
       <UniqueIdentifier>{3b65999b-e0c4-4ce0-8e03-a82f6b83cc37}</UniqueIdentifier>
     </Filter>
@@ -25,20 +22,38 @@
     <Filter Include="ShaderMaterials">
       <UniqueIdentifier>{a957ffae-b24e-4b00-aa79-5b857d177d69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShaderMaterials\VertexShader">
-      <UniqueIdentifier>{1a52533a-2326-4e3c-8731-7a1c1b54b499}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderMaterials\PixelShader">
-      <UniqueIdentifier>{74fa0d32-7d96-4043-a6d9-414bbacf7f60}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ShaderMaterials\Material">
       <UniqueIdentifier>{03a8be5d-eb72-4365-9f2e-97f11d8c5b93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ShaderMaterials\Material\MaterialPropertyList">
-      <UniqueIdentifier>{62a60de9-be4a-4dea-83ef-6d8c66c4b231}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ShaderParser\ID3DInclude">
       <UniqueIdentifier>{c192d7f1-6693-46ea-839c-3be714edc6cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataTypes\ShaderPath">
+      <UniqueIdentifier>{b9f3e25d-76a2-420d-bcc9-71fdf49946db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Shader">
+      <UniqueIdentifier>{6d26e944-2bd9-4965-b8a4-bbf3e4bc23d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Shader\VertexShader">
+      <UniqueIdentifier>{1a52533a-2326-4e3c-8731-7a1c1b54b499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Shader\PixelShader">
+      <UniqueIdentifier>{74fa0d32-7d96-4043-a6d9-414bbacf7f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Material\ConstantBufferPropertyList">
+      <UniqueIdentifier>{62a60de9-be4a-4dea-83ef-6d8c66c4b231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderMaterials\Material\TexturePropertyList">
+      <UniqueIdentifier>{65ba69bb-5497-4be8-afb5-655b3935741e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{552478ca-509d-4d99-bacf-fd6e12ce4b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers\TextHelper">
+      <UniqueIdentifier>{66e0e155-2340-474b-a604-3ec005a93d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers\D3DHelper">
+      <UniqueIdentifier>{d76d1c0b-0ead-4779-b7d9-d3295df5595b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,22 +85,31 @@
       <Filter>PugiXML</Filter>
     </ClCompile>
     <ClCompile Include="TextHelper.cpp">
-      <Filter>TextHelper</Filter>
+      <Filter>Helpers\TextHelper</Filter>
     </ClCompile>
     <ClCompile Include="ShaderParser.cpp">
       <Filter>ShaderParser</Filter>
     </ClCompile>
     <ClCompile Include="PixelShader.cpp">
-      <Filter>ShaderMaterials\PixelShader</Filter>
+      <Filter>ShaderMaterials\Shader\PixelShader</Filter>
     </ClCompile>
     <ClCompile Include="VertexShader.cpp">
-      <Filter>ShaderMaterials\VertexShader</Filter>
+      <Filter>ShaderMaterials\Shader\VertexShader</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>ShaderMaterials\Material</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialPropertyList.cpp">
-      <Filter>ShaderMaterials\Material\MaterialPropertyList</Filter>
+    <ClCompile Include="ConstantBufferPropertyList.cpp">
+      <Filter>ShaderMaterials\Material\ConstantBufferPropertyList</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderPath.cpp">
+      <Filter>DataTypes\ShaderPath</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseShader.cpp">
+      <Filter>ShaderMaterials\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturesPropertyList.cpp">
+      <Filter>ShaderMaterials\Material\TexturePropertyList</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +147,7 @@
       <Filter>PugiXML</Filter>
     </ClInclude>
     <ClInclude Include="TextHelper.h">
-      <Filter>TextHelper</Filter>
+      <Filter>Helpers\TextHelper</Filter>
     </ClInclude>
     <ClInclude Include="ShaderParser.h">
       <Filter>ShaderParser</Filter>
@@ -135,19 +159,31 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="PixelShader.h">
-      <Filter>ShaderMaterials\PixelShader</Filter>
+      <Filter>ShaderMaterials\Shader\PixelShader</Filter>
     </ClInclude>
     <ClInclude Include="VertexShader.h">
-      <Filter>ShaderMaterials\VertexShader</Filter>
+      <Filter>ShaderMaterials\Shader\VertexShader</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>ShaderMaterials\Material</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialPropertyList.h">
-      <Filter>ShaderMaterials\Material\MaterialPropertyList</Filter>
+    <ClInclude Include="ConstantBufferPropertyList.h">
+      <Filter>ShaderMaterials\Material\ConstantBufferPropertyList</Filter>
     </ClInclude>
     <ClInclude Include="ParagonShaderInclude.h">
       <Filter>ShaderParser\ID3DInclude</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderPath.h">
+      <Filter>DataTypes\ShaderPath</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseShader.h">
+      <Filter>ShaderMaterials\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturesPropertyList.h">
+      <Filter>ShaderMaterials\Material\TexturePropertyList</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DHelper.h">
+      <Filter>Helpers\D3DHelper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

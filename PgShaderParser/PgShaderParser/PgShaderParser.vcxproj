@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseShader.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -137,15 +138,26 @@
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialPropertyList.cpp" />
+    <ClCompile Include="ConstantBufferPropertyList.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="ShaderParser.cpp" />
+    <ClCompile Include="ShaderPath.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TextHelper.cpp" />
     <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="PgApp.cpp" />
+    <ClCompile Include="TexturesPropertyList.cpp" />
     <ClCompile Include="VertexShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseShader.h" />
+    <ClInclude Include="D3DHelper.h" />
+    <ClInclude Include="ShaderPath.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_gdi.h" />
@@ -155,8 +167,11 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialPropertyList.h" />
-    <ClInclude Include="ParagonShaderInclude.h" />
+    <ClInclude Include="ConstantBufferPropertyList.h" />
+    <ClInclude Include="ParagonShaderInclude.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="PgData.h" />
     <ClInclude Include="PgDefineEnums.h" />
     <ClInclude Include="PixelShader.h" />
@@ -165,6 +180,7 @@
     <ClInclude Include="pugiconfig.hpp" />
     <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="PgApp.h" />
+    <ClInclude Include="TexturesPropertyList.h" />
     <ClInclude Include="VertexShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
