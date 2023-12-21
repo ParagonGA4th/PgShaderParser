@@ -31,8 +31,9 @@ namespace Pg
 	protected:
 		void ProcessConstantBufferVariables(const _D3D11_SHADER_VARIABLE_DESC* shaderVarDesc, const _D3D11_SHADER_TYPE_DESC* shaderTypeDesc);
 
-	protected:
+	private:
 		std::wstring _filePath;
+	public:
 		std::unique_ptr<ConstantBufferPropertyList> _matPropConstantBufferList;
 		std::unique_ptr<TexturesPropertyList> _matPropTexturesList;
 

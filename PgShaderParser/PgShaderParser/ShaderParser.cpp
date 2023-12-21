@@ -59,7 +59,9 @@ namespace Pg
 		if (_material != nullptr)
 		{
 			delete _material;
+			_material = nullptr;
 		}
+		assert(_material == nullptr);
 	}
 
 	void ShaderParser::ResetVertexShader()
@@ -67,7 +69,10 @@ namespace Pg
 		if (_editedVS != nullptr)
 		{
 			delete _editedVS;
+			_editedVS = nullptr;
 		}
+
+		assert(_editedVS == nullptr);
 	}
 
 	void ShaderParser::ResetPixelShader()
@@ -75,7 +80,9 @@ namespace Pg
 		if (_editedPS != nullptr)
 		{
 			delete _editedPS;
+			_editedPS = nullptr;
 		}
+		assert(_editedPS == nullptr);
 	}
 
 	void ShaderParser::ResetAll()

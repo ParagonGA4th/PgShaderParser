@@ -111,6 +111,9 @@
     <ClCompile Include="TexturesPropertyList.cpp">
       <Filter>ShaderMaterials\Material\TexturePropertyList</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_stdlib.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PgApp.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="D3DHelper.h">
       <Filter>Helpers\D3DHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_stdlib.h">
+      <Filter>IMGUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
 #include "PixelShader.h"
 #include "TextHelper.h"
 #include "PgDefineEnums.h"
+#include "ConstantBufferPropertyList.h"
+#include "TexturesPropertyList.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -15,6 +17,7 @@
 #include <memory>
 #include <dinput.h>
 #include <tchar.h>
+#include <algorithm>
 
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -38,6 +41,8 @@ int main(int, char**)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+	//for (int i = ImGui::ImGuiKey_NamedKey_BEGIN; i<)
 
 	//어두운 스타일.
 	ImGui::StyleColorsDark();
@@ -79,6 +84,43 @@ int main(int, char**)
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
+		{
+			ImGui::SetNextWindowPos(ImVec2(500.f, 10.f));
+			ImGui::SetNextWindowSize(ImVec2(130.f, 200.f));
+			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
+			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
+			ImGui::Begin(T_KR("조작"));
+			ImGui::PushFont(bigFont);
+			if (ImGui::Button(T_KR("전체 리셋"), ImVec2(100.f, 37.5f)))
+			{
+				tApp->ResetEditorButtonPressed();
+			}
+			ImGui::PopFont();
+			ImGui::PushFont(smallFont);
+			if (ImGui::Button(T_KR("버텍스 셰이더 리셋", ImVec2(100.f, 37.5f))))
+			{
+				tApp->ResetVertexShaderButtonPressed();
+			}
+			if (ImGui::Button(T_KR("픽셀 셰이더 리셋", ImVec2(100.f, 37.5f))))
+			{
+				tApp->ResetPixelShaderButtonPressed();
+			}
+			ImGui::PopFont();
+
+			ImGui::PushFont(bigFont);
+			ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.2f, 0.1f, 1.f });
+			if (ImGui::Button(T_KR("매터리얼 생성"), ImVec2(120.f, 37.5f)))
+			{
+				//tApp->ResetEditorButtonPressed();
+			}
+			ImGui::PopFont();
+			ImGui::PopStyleColor();
+
+			ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+			ImGui::End();
+		}
+
 		//Tool Controls
 		{
 			ImGui::SetNextWindowPos(ImVec2(10.f, 10.f));
@@ -88,11 +130,16 @@ int main(int, char**)
 			ImGui::PushFont(smallFont);
 			ImGui::Begin(T_KR("툴 컨트롤러"));
 			//ImGui::Text(T_KR("파라곤 엔진"));               // Display some text (you can use a format strings too)
-			//ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 			//ImGui::Checkbox("Another Window", &show_another_window);
 
 			//ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 			//ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+			static bool show_demo_window = false;
+			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+
+			static std::string tWrite;
+			ImGui::InputText("", &tWrite);
 
 			//Render Buttons
 			ImGui::PushFont(bigFont);
@@ -154,43 +201,6 @@ int main(int, char**)
 			ImGui::End();
 		}
 
-		{
-			ImGui::SetNextWindowPos(ImVec2(500.f, 10.f));
-			ImGui::SetNextWindowSize(ImVec2(130.f, 200.f));
-			ImGui::PushStyleColor(ImGuiCol_TitleBg, { 0.2f, 0.3f, 0.4f, 1.f });
-			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
-			ImGui::Begin(T_KR("조작"));
-			ImGui::PushFont(bigFont);
-			if (ImGui::Button(T_KR("전체 리셋"), ImVec2(100.f, 37.5f)))
-			{
-				tApp->ResetEditorButtonPressed();
-			}
-			ImGui::PopFont();
-			ImGui::PushFont(smallFont);
-			if (ImGui::Button(T_KR("버텍스 셰이더 리셋", ImVec2(100.f, 37.5f))))
-			{
-				tApp->ResetVertexShaderButtonPressed();
-			}
-			if (ImGui::Button(T_KR("픽셀 셰이더 리셋", ImVec2(100.f, 37.5f))))
-			{
-				tApp->ResetPixelShaderButtonPressed();
-			}
-			ImGui::PopFont();
-
-			ImGui::PushFont(bigFont);
-			ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.2f, 0.1f, 1.f });
-			if (ImGui::Button(T_KR("매터리얼 생성"), ImVec2(120.f, 37.5f)))
-			{
-				//tApp->ResetEditorButtonPressed();
-			}
-			ImGui::PopFont();
-			ImGui::PopStyleColor();
-
-			ImGui::PopStyleColor();
-			ImGui::PopStyleColor();
-			ImGui::End();
-		}
-
 		if (tApp->GetShaderParser()->GetVertexShader() != nullptr)
 		{
 			ImGui::SetNextWindowPos(ImVec2(640.f, 10.f));
@@ -199,8 +209,14 @@ int main(int, char**)
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
 			ImGui::Begin(T_KR("버텍스 셰이더 파라미터"));
 			ImGui::PushFont(smallFont);
-			ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
+			//ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
 
+			auto& tConstantBufferList = tApp->GetShaderParser()->GetVertexShader()->_matPropConstantBufferList;
+			//Vertex Shader의 프로퍼티 출력.
+			tApp->DisplayIMGUIConstantBufferData(bigFont, tConstantBufferList.get());
+
+			auto& tTextureBufferList = tApp->GetShaderParser()->GetVertexShader()->_matPropTexturesList;
+			tApp->DisplayIMGUITextureData(bigFont, tTextureBufferList.get());
 
 			ImGui::PopFont();
 			ImGui::PopStyleColor();
@@ -216,8 +232,15 @@ int main(int, char**)
 			ImGui::PushStyleColor(ImGuiCol_TitleBgActive, { 0.1254f,0.698f,0.666f, 1.f });
 			ImGui::Begin(T_KR("픽셀 셰이더 파라미터"));
 			ImGui::PushFont(smallFont);
-			ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
+			//ImGui::Text(T_KR("파라곤 엔진")); // Display some text (you can use a format strings too)
 
+			auto& tConstantBufferList = tApp->GetShaderParser()->GetPixelShader()->_matPropConstantBufferList;
+
+			//Vertex Shader의 프로퍼티 출력.
+			tApp->DisplayIMGUIConstantBufferData(bigFont, tConstantBufferList.get());
+
+			auto& tTextureBufferList = tApp->GetShaderParser()->GetPixelShader()->_matPropTexturesList;
+			tApp->DisplayIMGUITextureData(bigFont, tTextureBufferList.get());
 
 			ImGui::PopFont();
 			ImGui::PopStyleColor();

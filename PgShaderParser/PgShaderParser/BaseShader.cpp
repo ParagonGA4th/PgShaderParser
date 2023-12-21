@@ -68,6 +68,12 @@ namespace Pg
 		HR(_reflection->GetDesc(&shaderDesc));
 		const UINT totalNumCBuffers = shaderDesc.ConstantBuffers;
 
+		//상수 버퍼가 없을 경우, 바로 리턴.
+		if (totalNumCBuffers == 0)
+		{
+			return;
+		}
+
 		//나중에 파이프라인이 바뀌게 된다면, 여러 개가 가능해질 수도 있음.
 		//아니면 디폴트로 적용하는 CBuffer가 있다면, 이 역시 반영되어서 바뀌어야 한다.
 		assert(totalNumCBuffers == 1 && "Paragon Engine : 상수 버퍼 하나짜리로 Fix (클라이언트 딴)");
@@ -112,31 +118,31 @@ namespace Pg
 
 		if (shaderTypeDesc->Type == D3D_SVT_BOOL && tCount == 1)
 		{
-			_matPropConstantBufferList->_boolPropList.push(std::make_pair(tProp, false));
+			_matPropConstantBufferList->_boolPropList.push_back(std::make_pair(tProp, false));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_UINT && tCount == 1)
 		{
-			_matPropConstantBufferList->_uintPropList.push(std::make_pair(tProp, 0));
+			_matPropConstantBufferList->_uintPropList.push_back(std::make_pair(tProp, 0));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_INT && tCount == 1)
 		{
-			_matPropConstantBufferList->_intPropList.push(std::make_pair(tProp, 0));
+			_matPropConstantBufferList->_intPropList.push_back(std::make_pair(tProp, 0));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_FLOAT && tCount == 1)
 		{
-			_matPropConstantBufferList->_floatPropList.push(std::make_pair(tProp, 0.f));
+			_matPropConstantBufferList->_floatPropList.push_back(std::make_pair(tProp, 0.f));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_FLOAT && tCount == 2)
 		{
-			_matPropConstantBufferList->_vec2PropList.push(std::make_pair(tProp, float2{ 0.f,0.f }));
+			_matPropConstantBufferList->_vec2PropList.push_back(std::make_pair(tProp, float2{ 0.f,0.f }));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_FLOAT && tCount == 3)
 		{
-			_matPropConstantBufferList->_vec3PropList.push(std::make_pair(tProp, float3{ 0.f,0.f,0.f }));
+			_matPropConstantBufferList->_vec3PropList.push_back(std::make_pair(tProp, float3{ 0.f,0.f,0.f }));
 		}
 		else if (shaderTypeDesc->Type == D3D_SVT_FLOAT && tCount == 4)
 		{
-			_matPropConstantBufferList->_vec4PropList.push(std::make_pair(tProp, float4{ 0.f,0.f,0.f,0.f }));
+			_matPropConstantBufferList->_vec4PropList.push_back(std::make_pair(tProp, float4{ 0.f,0.f,0.f,0.f }));
 		}
 		else
 		{
@@ -177,19 +183,19 @@ namespace Pg
 						//이제 각각 어떤 타입인지 골라내야 한다.
 						if (tBindDesc.Dimension == D3D_SRV_DIMENSION_TEXTURE1D)
 						{
-							_matPropTexturesList->_texture1DPropList.push(std::make_pair(tProp,"TextureName"));
+							_matPropTexturesList->_texture1DPropList.push_back(std::make_pair(tProp,"TextureName"));
 						}
 						else if(tBindDesc.Dimension == D3D_SRV_DIMENSION_TEXTURE2D)
 						{
-							_matPropTexturesList->_texture2DPropList.push(std::make_pair(tProp, "TextureName"));
+							_matPropTexturesList->_texture2DPropList.push_back(std::make_pair(tProp, "TextureName"));
 						}
 						else if (tBindDesc.Dimension == D3D_SRV_DIMENSION_TEXTURE2DARRAY)
 						{
-							_matPropTexturesList->_texture2DArrayPropList.push(std::make_pair(tProp, "TextureName"));
+							_matPropTexturesList->_texture2DArrayPropList.push_back(std::make_pair(tProp, "TextureName"));
 						}
 						else if (tBindDesc.Dimension == D3D_SRV_DIMENSION_TEXTURECUBE)
 						{
-							_matPropTexturesList->_textureCubePropList.push(std::make_pair(tProp, "TextureName"));
+							_matPropTexturesList->_textureCubePropList.push_back(std::make_pair(tProp, "TextureName"));
 						}
 						else
 						{

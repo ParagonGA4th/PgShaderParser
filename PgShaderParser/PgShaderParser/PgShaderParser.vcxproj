@@ -135,6 +135,7 @@
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_gdi.cpp" />
     <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_stdlib.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -154,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="BaseShader.h" />
     <ClInclude Include="D3DHelper.h" />
+    <ClInclude Include="imgui_stdlib.h" />
     <ClInclude Include="ShaderPath.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

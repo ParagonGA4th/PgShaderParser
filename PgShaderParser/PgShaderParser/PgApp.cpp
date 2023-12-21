@@ -4,7 +4,8 @@
 #include "Material.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-//#include "MaterialPropertyList.h"
+#include "ConstantBufferPropertyList.h"
+#include "TexturesPropertyList.h"
 
 #include <shlwapi.h>;
 #include <shellapi.h>;
@@ -41,6 +42,135 @@ namespace Pg
 	void PgApp::Finalize()
 	{
 		CoUninitialize();
+	}
+
+	void PgApp::DisplayIMGUIConstantBufferData(ImFont* bigFont, ConstantBufferPropertyList* tConstantBufferList)
+	{
+		if (!tConstantBufferList->_boolPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Boolean>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_boolPropList.size(); i++)
+		{
+			ImGui::Checkbox(tConstantBufferList->_boolPropList[i].first._name.c_str(), &(tConstantBufferList->_boolPropList[i].second));
+		}
+
+		if (!tConstantBufferList->_uintPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Unsigned Int>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_uintPropList.size(); i++)
+		{
+			int tUInt = tConstantBufferList->_uintPropList[i].second;
+			ImGui::InputInt(tConstantBufferList->_uintPropList[i].first._name.c_str(), &tUInt);
+			tConstantBufferList->_uintPropList[i].second = std::clamp(tUInt, 0, INT_MAX);
+		}
+
+		if (!tConstantBufferList->_intPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Int>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_intPropList.size(); i++)
+		{
+			ImGui::InputInt(tConstantBufferList->_intPropList[i].first._name.c_str(), &(tConstantBufferList->_intPropList[i].second));
+		}
+
+		if (!tConstantBufferList->_floatPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Float>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_floatPropList.size(); i++)
+		{
+			ImGui::InputFloat(tConstantBufferList->_floatPropList[i].first._name.c_str(), &(tConstantBufferList->_floatPropList[i].second));
+		}
+
+		if (!tConstantBufferList->_vec2PropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Vector2>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_vec2PropList.size(); i++)
+		{
+			ImGui::InputFloat2(tConstantBufferList->_vec2PropList[i].first._name.c_str(), tConstantBufferList->_vec2PropList[i].second._v);
+		}
+
+		if (!tConstantBufferList->_vec3PropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Vector3>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_vec3PropList.size(); i++)
+		{
+			ImGui::InputFloat3(tConstantBufferList->_vec3PropList[i].first._name.c_str(), tConstantBufferList->_vec3PropList[i].second._v);
+		}
+
+		if (!tConstantBufferList->_vec4PropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Vector4 / Color4>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tConstantBufferList->_vec4PropList.size(); i++)
+		{
+			ImGui::InputFloat4(tConstantBufferList->_vec4PropList[i].first._name.c_str(), tConstantBufferList->_vec4PropList[i].second._v);
+		}
+	}
+
+	void PgApp::DisplayIMGUITextureData(ImFont* bigFont, TexturesPropertyList* tTexturesBufferList)
+	{
+		if (!tTexturesBufferList->_texture1DPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Texture1D>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tTexturesBufferList->_texture1DPropList.size(); i++)
+		{
+			ImGui::InputText(tTexturesBufferList->_texture1DPropList[i].first._name.c_str(), &tTexturesBufferList->_texture1DPropList[i].second);
+		}
+
+		if (!tTexturesBufferList->_texture2DPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Texture2D>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tTexturesBufferList->_texture2DPropList.size(); i++)
+		{
+			ImGui::InputText(tTexturesBufferList->_texture2DPropList[i].first._name.c_str(), &tTexturesBufferList->_texture2DPropList[i].second);
+		}
+
+		if (!tTexturesBufferList->_texture2DArrayPropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<Texture2DArray>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tTexturesBufferList->_texture2DArrayPropList.size(); i++)
+		{
+			ImGui::InputText(tTexturesBufferList->_texture2DArrayPropList[i].first._name.c_str(), &tTexturesBufferList->_texture2DArrayPropList[i].second);
+		}
+
+		if (!tTexturesBufferList->_textureCubePropList.empty())
+		{
+			ImGui::PushFont(bigFont);
+			ImGui::Text("<TextureCube>");
+			ImGui::PopFont();
+		}
+		for (size_t i = 0; i < tTexturesBufferList->_textureCubePropList.size(); i++)
+		{
+			ImGui::InputText(tTexturesBufferList->_textureCubePropList[i].first._name.c_str(), &tTexturesBufferList->_textureCubePropList[i].second);
+		}
 	}
 
 	Pg::ShaderParser* PgApp::GetShaderParser()
