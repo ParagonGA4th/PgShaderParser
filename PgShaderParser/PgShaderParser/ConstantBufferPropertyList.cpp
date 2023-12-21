@@ -44,7 +44,7 @@ namespace Pg
 		return _constantBufferName;
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleBoolProp(std::string& varName, bool& value)
+	bool ConstantBufferPropertyList::RetrieveSingleBoolProp(ConstantBufferVariableProp& varName, bool& value)
 	{
 		if (_boolPropList.empty()) { return false; }
 
@@ -55,7 +55,7 @@ namespace Pg
 		_boolPropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleUnsignedIntProp(std::string& varName, unsigned int& value)
+	bool ConstantBufferPropertyList::RetrieveSingleUnsignedIntProp(ConstantBufferVariableProp& varName, unsigned int& value)
 	{
 		if (_uintPropList.empty()) { return false; }
 
@@ -66,7 +66,7 @@ namespace Pg
 		_uintPropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleIntProp(std::string& varName, int& value)
+	bool ConstantBufferPropertyList::RetrieveSingleIntProp(ConstantBufferVariableProp& varName, int& value)
 	{
 		if (_intPropList.empty()) { return false; }
 
@@ -77,7 +77,7 @@ namespace Pg
 		_intPropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleFloatProp(std::string& varName, float& value)
+	bool ConstantBufferPropertyList::RetrieveSingleFloatProp(ConstantBufferVariableProp& varName, float& value)
 	{
 		if (_floatPropList.empty()) { return false; }
 
@@ -88,7 +88,7 @@ namespace Pg
 		_floatPropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleVector2Prop(std::string& varName, float2& value)
+	bool ConstantBufferPropertyList::RetrieveSingleVector2Prop(ConstantBufferVariableProp& varName, float2& value)
 	{
 		if (_vec2PropList.empty()) { return false; }
 
@@ -99,7 +99,7 @@ namespace Pg
 		_vec2PropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleVector3Prop(std::string& varName, float3& value)
+	bool ConstantBufferPropertyList::RetrieveSingleVector3Prop(ConstantBufferVariableProp& varName, float3& value)
 	{
 		if (_vec3PropList.empty()) { return false; }
 
@@ -110,7 +110,7 @@ namespace Pg
 		_vec3PropList.pop();
 	}
 
-	bool ConstantBufferPropertyList::RetrieveSingleVector4Prop(std::string& varName, float4& value)
+	bool ConstantBufferPropertyList::RetrieveSingleVector4Prop(ConstantBufferVariableProp& varName, float4& value)
 	{
 		if (_vec4PropList.empty()) { return false; }
 

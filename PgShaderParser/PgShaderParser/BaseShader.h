@@ -26,6 +26,7 @@ namespace Pg
 
 	protected:
 		void GetConstantBufferVariableInfo();
+		void GetTextureBufferVariableInfo();
 
 	protected:
 		void ProcessConstantBufferVariables(const _D3D11_SHADER_VARIABLE_DESC* shaderVarDesc, const _D3D11_SHADER_TYPE_DESC* shaderTypeDesc);
