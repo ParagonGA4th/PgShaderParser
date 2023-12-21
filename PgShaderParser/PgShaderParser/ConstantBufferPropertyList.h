@@ -38,6 +38,7 @@ namespace Pg
 		std::vector<std::pair<ConstantBufferVariableProp, float2>>		_vec2PropList;
 		std::vector<std::pair<ConstantBufferVariableProp, float3>>		_vec3PropList;
 		std::vector<std::pair<ConstantBufferVariableProp, float4>>		_vec4PropList;
+	public:
 	};
 }
 

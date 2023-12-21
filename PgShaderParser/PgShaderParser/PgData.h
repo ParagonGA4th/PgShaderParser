@@ -4,6 +4,13 @@
 
 namespace Pg
 {
+	//Vector의 오버로드를 피하기 위해. (vector<bool>)
+	struct BoolWrapper
+	{
+		BoolWrapper(bool val) { _value = val; }
+		bool _value = false;
+	};
+
 	struct ConstantBufferVariableProp
 	{
 		ConstantBufferVariableProp() = default;
@@ -69,21 +76,6 @@ namespace Pg
 				float y;
 				float z;
 				float w;
-			};
-		};
-	};
-
-	struct color4
-	{
-		union
-		{
-			float _v[4];
-			struct
-			{
-				float r;
-				float g;
-				float b;
-				float a;
 			};
 		};
 	};

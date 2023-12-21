@@ -122,7 +122,7 @@ namespace Pg
 		}
 		for (size_t i = 0; i < tConstantBufferList->_vec4PropList.size(); i++)
 		{
-			ImGui::InputFloat4(tConstantBufferList->_vec4PropList[i].first._name.c_str(), tConstantBufferList->_vec4PropList[i].second._v);
+			ImGui::ColorEdit3(tConstantBufferList->_vec4PropList[i].first._name.c_str(), tConstantBufferList->_vec4PropList[i].second._v);
 		}
 	}
 

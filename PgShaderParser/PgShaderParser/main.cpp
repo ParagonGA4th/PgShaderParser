@@ -135,12 +135,6 @@ int main(int, char**)
 			//ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 			//ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-			static bool show_demo_window = false;
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-
-			static std::string tWrite;
-			ImGui::InputText("", &tWrite);
-
 			//Render Buttons
 			ImGui::PushFont(bigFont);
 			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 37.5f)))
@@ -248,6 +242,7 @@ int main(int, char**)
 			ImGui::End();
 		}
 
+		if (tApp->GetShaderParser()->GetMaterial() != nullptr)
 		{
 			ImGui::SetNextWindowPos(ImVec2(10.f, 220.f));
 			ImGui::SetNextWindowSize(ImVec2(620.f, 530.f));
