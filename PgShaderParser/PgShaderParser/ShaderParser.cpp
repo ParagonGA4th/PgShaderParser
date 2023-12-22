@@ -26,10 +26,15 @@ namespace Pg
 		ResetAll();
 	}
 
-	void ShaderParser::CreateMaterial(const std::wstring& filePath)
+	void ShaderParser::CreateNewMaterial(const std::wstring& filePath)
 	{
+		//호출시점에서 
 		ResetMaterial();
 		_material = new Material();
+		_material->SetFilePath(filePath);
+		_material->SetVertexShader(_editedVS);
+		_material->SetPixelShader(_editedPS);
+		_material->Generate(filePath);
 	}
 
 	void ShaderParser::CreateVertexShader(const std::wstring& filePath)
@@ -44,15 +49,15 @@ namespace Pg
 		_editedPS = new PixelShader(filePath);
 	}
 
-	void ShaderParser::CopyToXMLFile(const std::wstring& filePath, const std::ifstream& inputFileStream)
-	{
-
-	}
-
-	void ShaderParser::SaveToXMLFile(const std::wstring& filePath)
-	{
-
-	}
+	//void ShaderParser::CopyToXMLFile(const std::wstring& filePath, const std::ifstream& inputFileStream)
+	//{
+	//
+	//}
+	//
+	//void ShaderParser::SaveToXMLFile(const std::wstring& filePath)
+	//{
+	//
+	//}
 
 	void ShaderParser::ResetMaterial()
 	{

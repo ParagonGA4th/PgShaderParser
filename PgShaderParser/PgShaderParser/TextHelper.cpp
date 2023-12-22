@@ -30,4 +30,11 @@ namespace Pg
 		return std::wstring(buffer);
 	}
 
+	std::string TextHelper::WStringToAnsi(const std::wstring& wstring)
+	{
+		char buffer[512];
+		int res = WideCharToMultiByte(CP_ACP, 0, wstring.c_str(), -1, buffer, 512, NULL, NULL);
+		return std::string(buffer);
+	}
+
 }

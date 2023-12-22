@@ -43,4 +43,15 @@ namespace Pg
 	{
 		return _constantBufferName;
 	}
+
+	void ConstantBufferPropertyList::SetRegisterNumberCount(unsigned int regNum)
+	{
+		_registerNumber = regNum;
+	}
+
+	unsigned int ConstantBufferPropertyList::GetRegisterNumberCount()
+	{
+		return _registerNumber;
+	}
+
 }

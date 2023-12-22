@@ -14,6 +14,9 @@ namespace Pg
 		void Reset();
 
 	public:
+		//Variable의 Index대로 들어오는 variable string을 저장한다.
+		std::vector<std::string> _varRecord;
+
 		//Variable Name / Value/
 		std::vector<std::pair<TexturesVariableProp, std::string>> _texture1DPropList; //Texture 1D -> 텍스쳐 이름을 기록.
 		std::vector<std::pair<TexturesVariableProp, std::string>> _texture2DPropList; //Texture 2D -> 텍스쳐 이름을 기록.

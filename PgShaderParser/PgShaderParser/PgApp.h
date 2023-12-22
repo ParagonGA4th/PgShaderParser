@@ -44,7 +44,7 @@ namespace Pg
 
 		std::wstring GetVSName();
 		std::wstring GetPSName();
-		std::wstring GetMaterialName();
+		std::wstring GetMaterialName();		
 
 	private:
 		std::unique_ptr<ShaderParser> _shaderParser;

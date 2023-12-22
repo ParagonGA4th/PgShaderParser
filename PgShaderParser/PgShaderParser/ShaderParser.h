@@ -22,11 +22,11 @@ namespace Pg
 		void Initialize();
 		void Finalize();
 
-		void CreateMaterial(const std::wstring& filePath);
+		void CreateNewMaterial(const std::wstring& filePath);
 		void CreateVertexShader(const std::wstring& filePath);
 		void CreatePixelShader(const std::wstring& filePath);
-		void CopyToXMLFile(const std::wstring& filePath, const std::ifstream& inputFileStream);
-		void SaveToXMLFile(const std::wstring& filePath);
+		//void CopyToXMLFile(const std::wstring& filePath, const std::ifstream& inputFileStream);
+		//void SaveToXMLFile(const std::wstring& filePath);
 		void ResetAll();
 		void ResetMaterial();
 		void ResetVertexShader();

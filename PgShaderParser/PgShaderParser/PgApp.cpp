@@ -122,7 +122,7 @@ namespace Pg
 		}
 		for (size_t i = 0; i < tConstantBufferList->_vec4PropList.size(); i++)
 		{
-			ImGui::ColorEdit3(tConstantBufferList->_vec4PropList[i].first._name.c_str(), tConstantBufferList->_vec4PropList[i].second._v);
+			ImGui::InputFloat4(tConstantBufferList->_vec4PropList[i].first._name.c_str(), tConstantBufferList->_vec4PropList[i].second._v);
 		}
 	}
 
@@ -251,60 +251,61 @@ namespace Pg
 
 	void PgApp::SaveMaterialButtonPressed()
 	{
-		// Common Item Dialog 인터페이스 생성
-		HRESULT hr;
+		assert(false && "아직 준비되지 않음");
+		//// Common Item Dialog 인터페이스 생성
+		//HRESULT hr;
 
-		//Windows File Dialog Open
-		IFileDialog* itemDialog;
+		////Windows File Dialog Open
+		//IFileDialog* itemDialog;
 
-		hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_PPV_ARGS(&itemDialog));
-		if (FAILED(hr)) { CoUninitialize(); assert(SUCCEEDED(hr)); }
+		//hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL, IID_PPV_ARGS(&itemDialog));
+		//if (FAILED(hr)) { CoUninitialize(); assert(SUCCEEDED(hr)); }
 
-		itemDialog->SetFileName(L"SavedMaterial.pgmat");
+		//itemDialog->SetFileName(L"SavedMaterial.pgmat");
 
-		// 파일 필터 설정: .ppt 확장자 필터
-		COMDLG_FILTERSPEC fileTypes[1];
+		//// 파일 필터 설정: .ppt 확장자 필터
+		//COMDLG_FILTERSPEC fileTypes[1];
 
-		fileTypes[0] = { L"Paragon Material", L"*.pgmat" };
+		//fileTypes[0] = { L"Paragon Material", L"*.pgmat" };
 
-		itemDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
-		itemDialog->SetFileTypeIndex(0); // 기본 확장자 선택 (1부터 시작)
+		//itemDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
+		//itemDialog->SetFileTypeIndex(0); // 기본 확장자 선택 (1부터 시작)
 
-		// 파일 저장 대화 상자 표시
-		hr = itemDialog->Show(NULL);
-		IShellItem* pItem;
-		LPWSTR filePath = NULL;
+		//// 파일 저장 대화 상자 표시
+		//hr = itemDialog->Show(NULL);
+		//IShellItem* pItem;
+		//LPWSTR filePath = NULL;
 
-		if (SUCCEEDED(hr))
-		{
-			hr = itemDialog->GetResult(&pItem);
-			if (SUCCEEDED(hr))
-			{
-				hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &filePath);
-				if (SUCCEEDED(hr)) CoTaskMemFree(filePath);
-				pItem->Release();
-			}
-		}
+		//if (SUCCEEDED(hr))
+		//{
+		//	hr = itemDialog->GetResult(&pItem);
+		//	if (SUCCEEDED(hr))
+		//	{
+		//		hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &filePath);
+		//		if (SUCCEEDED(hr)) CoTaskMemFree(filePath);
+		//		pItem->Release();
+		//	}
+		//}
 
-		if (filePath != NULL)
-		{
-			std::wstring wString;
-			wString = filePath;
+		//if (filePath != NULL)
+		//{
+		//	std::wstring wString;
+		//	wString = filePath;
 
-			HANDLE hFile = CreateFile(
-				_shaderParser->GetMaterial()->GetFilePath().c_str(),
-				GENERIC_WRITE,
-				0,
-				NULL,
-				CREATE_ALWAYS,
-				FILE_ATTRIBUTE_NORMAL,
-				NULL
-			);
+		//	HANDLE hFile = CreateFile(
+		//		_shaderParser->GetMaterial()->GetFilePath().c_str(),
+		//		GENERIC_WRITE,
+		//		0,
+		//		NULL,
+		//		CREATE_ALWAYS,
+		//		FILE_ATTRIBUTE_NORMAL,
+		//		NULL
+		//	);
 
-			_shaderParser->SaveToXMLFile(_shaderParser->GetMaterial()->GetFilePath());
-		}
+		//	_shaderParser->SaveToXMLFile(_shaderParser->GetMaterial()->GetFilePath());
+		//}
 
-		itemDialog->Release();
+		//itemDialog->Release();
 	}
 
 	void PgApp::NewMaterialButtonPressed()
@@ -353,7 +354,13 @@ namespace Pg
 								// Combine the folder path and file name
 								std::wstring tFilePath = pszFolderPath;
 								assert(tFilePath.size() < MAX_PATH);
-								tFilePath.append(L".pgmat");
+								
+								//.pgmat이 없으면 넣어준다.
+								auto n = tFilePath.find(L".pgmat");
+								if (n == std::string::npos)
+								{
+									tFilePath.append(L".pgmat");
+								}
 								//PathCombine(szFilePath, pszFolderPath, szFileName);
 
 								// Create the new text file
@@ -377,7 +384,10 @@ namespace Pg
 								CoTaskMemFree(pszFolderPath);
 
 								///Material 만들기.
-								_shaderParser->CreateMaterial(tFilePath);
+								if (_shaderParser->GetPixelShader() != nullptr && _shaderParser->GetVertexShader() != nullptr)
+								{
+									_shaderParser->CreateNewMaterial(tFilePath);
+								}
 							}
 
 							// Release the IShellItem
@@ -393,92 +403,95 @@ namespace Pg
 
 	void PgApp::SaveAsMaterialButtonPressed()
 	{
-		// Create the File Open Dialog object
-		IFileSaveDialog* pFileSaveDialog;
-		HRESULT hr = CoCreateInstance(
-			CLSID_FileSaveDialog,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&pFileSaveDialog)
-		);
+		assert(false && "아직 준비되지 않음");
+		//// Create the File Open Dialog object
+		//IFileSaveDialog* pFileSaveDialog;
+		//HRESULT hr = CoCreateInstance(
+		//	CLSID_FileSaveDialog,
+		//	NULL,
+		//	CLSCTX_INPROC_SERVER,
+		//	IID_PPV_ARGS(&pFileSaveDialog)
+		//);
 
-		if (SUCCEEDED(hr)) {
-			// Set options for the File Save Dialog
-			DWORD dwFlags;
-			hr = pFileSaveDialog->GetOptions(&dwFlags);
+		//if (SUCCEEDED(hr)) {
+		//	// Set options for the File Save Dialog
+		//	DWORD dwFlags;
+		//	hr = pFileSaveDialog->GetOptions(&dwFlags);
 
-			if (SUCCEEDED(hr)) {
-				// Set the options to include the "OverwritePrompt" flag
-				hr = pFileSaveDialog->SetOptions(dwFlags | FOS_OVERWRITEPROMPT);
+		//	if (SUCCEEDED(hr)) {
+		//		// Set the options to include the "OverwritePrompt" flag
+		//		hr = pFileSaveDialog->SetOptions(dwFlags | FOS_OVERWRITEPROMPT);
 
-				if (SUCCEEDED(hr)) {
-					///
-					//파라미터 고르게 하기.
-					COMDLG_FILTERSPEC fileTypes[1];
+		//		if (SUCCEEDED(hr)) {
+		//			///
+		//			//파라미터 고르게 하기.
+		//			COMDLG_FILTERSPEC fileTypes[1];
 
-					fileTypes[0] = { L"Paragon Material", L"*.pgmat" };
+		//			fileTypes[0] = { L"Paragon Material", L"*.pgmat" };
 
-					pFileSaveDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
-					pFileSaveDialog->SetFileTypeIndex(0); // 기본 확장자 선택 (1부터 시작)
-					///
-					// Show the File Save Dialog
-					hr = pFileSaveDialog->Show(NULL);
+		//			pFileSaveDialog->SetFileTypes(ARRAYSIZE(fileTypes), fileTypes);
+		//			pFileSaveDialog->SetFileTypeIndex(0); // 기본 확장자 선택 (1부터 시작)
+		//			///
+		//			// Show the File Save Dialog
+		//			hr = pFileSaveDialog->Show(NULL);
 
-					if (SUCCEEDED(hr)) {
-						// Get the selected folder and file name
-						IShellItem* pShellItem;
-						hr = pFileSaveDialog->GetResult(&pShellItem);
+		//			if (SUCCEEDED(hr)) {
+		//				// Get the selected folder and file name
+		//				IShellItem* pShellItem;
+		//				hr = pFileSaveDialog->GetResult(&pShellItem);
 
-						if (SUCCEEDED(hr)) {
-							PWSTR pszFolderPath;
-							hr = pShellItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFolderPath);
+		//				if (SUCCEEDED(hr)) {
+		//					PWSTR pszFolderPath;
+		//					hr = pShellItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFolderPath);
 
-							if (SUCCEEDED(hr)) {
-								// Combine the folder path and file name
-								std::wstring tFilePath = pszFolderPath;
-								assert(tFilePath.size() < MAX_PATH);
-								tFilePath.append(L".pgmat");
-								//PathCombine(szFilePath, pszFolderPath, szFileName);
+		//					if (SUCCEEDED(hr)) {
+		//						// Combine the folder path and file name
+		//						std::wstring tFilePath = pszFolderPath;
+		//						assert(tFilePath.size() < MAX_PATH);
+		//						tFilePath.append(L".pgmat");
+		//						//PathCombine(szFilePath, pszFolderPath, szFileName);
 
-								// Create the new text file
-								HANDLE hFile = CreateFile(
-									tFilePath.c_str(),
-									GENERIC_WRITE,
-									0,
-									NULL,
-									CREATE_ALWAYS,
-									FILE_ATTRIBUTE_NORMAL,
-									NULL
-								);
+		//						// Create the new text file
+		//						HANDLE hFile = CreateFile(
+		//							tFilePath.c_str(),
+		//							GENERIC_WRITE,
+		//							0,
+		//							NULL,
+		//							CREATE_ALWAYS,
+		//							FILE_ATTRIBUTE_NORMAL,
+		//							NULL
+		//						);
 
-								if (hFile == INVALID_HANDLE_VALUE) {
-									wprintf(L"Error creating file: %d\n", GetLastError());
-								}
-								// Close the file handle
-								CloseHandle(hFile);
+		//						if (hFile == INVALID_HANDLE_VALUE) {
+		//							wprintf(L"Error creating file: %d\n", GetLastError());
+		//						}
+		//						// Close the file handle
+		//						CloseHandle(hFile);
 
-								// Release the allocated memory
-								CoTaskMemFree(pszFolderPath);
+		//						// Release the allocated memory
+		//						CoTaskMemFree(pszFolderPath);
 
-								///발동 전에, 우선 정보 저장.
-								std::ifstream inFile(_shaderParser->GetMaterial()->GetFilePath());
-								_shaderParser->CreateMaterial(tFilePath);
-								_shaderParser->CopyToXMLFile(tFilePath, inFile);
-							}
+		//						///발동 전에, 우선 정보 저장.
+		//						std::ifstream inFile(_shaderParser->GetMaterial()->GetFilePath());
+		//						_shaderParser->CreateMaterial(tFilePath);
+		//						_shaderParser->CopyToXMLFile(tFilePath, inFile);
+		//					}
 
-							// Release the IShellItem
-							pShellItem->Release();
-						}
-					}
-				}
-			}
-		}
-		// Release the File Save Dialog
-		pFileSaveDialog->Release();
+		//					// Release the IShellItem
+		//					pShellItem->Release();
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+		//// Release the File Save Dialog
+		//pFileSaveDialog->Release();
 	}
 
 	void PgApp::OpenMaterialButtonPressed()
 	{
+		assert(false && "아직 구현되지 않음");
+		/*
 		// Common Item Dialog 인터페이스 생성
 		HRESULT hr;
 
@@ -526,6 +539,7 @@ namespace Pg
 		}
 
 		itemDialog->Release();
+		*/
 	}
 
 	void PgApp::ResetEditorButtonPressed()
@@ -578,5 +592,4 @@ namespace Pg
 			return DEFAULT_PATH_NULL;
 		}
 	}
-
 }

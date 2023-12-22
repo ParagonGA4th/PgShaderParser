@@ -79,14 +79,43 @@ namespace Pg
 		assert(totalNumCBuffers == 1 && "Paragon Engine : 상수 버퍼 하나짜리로 Fix (클라이언트 딴)");
 
 		//Constant Buffer는 하나 가져오는 것으로 하드코딩.
+		//다만, 무조건 엔진 딴의 CBuffer가 추가된다면, 이를 갖고 오면 안된다.
+		//이를 막기 위해, Register를 갖고 올 수 있게!
 		ID3D11ShaderReflectionConstantBuffer* cbReflection = nullptr;
-		cbReflection = _reflection->GetConstantBufferByIndex(0);
 
 		D3D11_SHADER_BUFFER_DESC tConstantBufferDesc;
-		HR(cbReflection->GetDesc(&tConstantBufferDesc));
+		ZeroMemory(&tConstantBufferDesc, sizeof(D3D11_SHADER_BUFFER_DESC));
 
+		D3D11_SHADER_INPUT_BIND_DESC tShaderInputBindDesc;
+		ZeroMemory(&tShaderInputBindDesc, sizeof(D3D11_SHADER_INPUT_BIND_DESC));
+
+		//클라이언트 딴 Constant Buffer를 건드리지 않고 가져오기 위해서.
+		for (int i = 0; i < D3D11_COMMONSHADER_CONSTANT_BUFFER_HW_SLOT_COUNT; i++)
+		{
+			cbReflection = nullptr;
+			cbReflection = _reflection->GetConstantBufferByIndex(i);
+
+			ZeroMemory(&tConstantBufferDesc, sizeof(D3D11_SHADER_BUFFER_DESC));
+			HR(cbReflection->GetDesc(&tConstantBufferDesc));
+
+			//Register Number 기록.
+			ZeroMemory(&tShaderInputBindDesc, sizeof(D3D11_SHADER_INPUT_BIND_DESC));
+			HR(_reflection->GetResourceBindingDescByName(tConstantBufferDesc.Name, &tShaderInputBindDesc));
+
+			if (tShaderInputBindDesc.BindPoint >= CBUFFER_CLIENT_START_REGISTER)
+			{
+				//하나라도 엔진에 한정적인 Register Number의 상수 버퍼가 있다면, 바로 나오기!
+				break;
+			}
+		}
+
+		//완료되었으면, Material에 필요한 값을 받아와서 설정한다.
 		_matPropConstantBufferList->SetByteCount(tConstantBufferDesc.Size);
 		_matPropConstantBufferList->SetConstantBufferName(tConstantBufferDesc.Name);
+		_matPropConstantBufferList->SetRegisterNumberCount(tShaderInputBindDesc.BindPoint);
+
+		//Reflection이 nullptr가 아니라는 것을 확정!
+		assert(cbReflection != nullptr);
 
 		for (UINT i = 0; i < tConstantBufferDesc.Variables; i++)
 		{
@@ -98,9 +127,11 @@ namespace Pg
 			ID3D11ShaderReflectionType* tReflType = varReflection->GetType();
 			D3D11_SHADER_TYPE_DESC tTypeDesc;
 			HR(tReflType->GetDesc(&tTypeDesc));
-
+			
 			ProcessConstantBufferVariables(&tVarDesc, &tTypeDesc);
 		}
+
+
 	}
 
 	void BaseShader::ProcessConstantBufferVariables(const _D3D11_SHADER_VARIABLE_DESC* shaderVarDesc, const _D3D11_SHADER_TYPE_DESC* shaderTypeDesc)
@@ -115,6 +146,9 @@ namespace Pg
 		tProp._name = shaderVarDesc->Name;
 		tProp._size = shaderVarDesc->Size;
 		tProp._startOffset = shaderVarDesc->StartOffset;
+
+		//나중에 순서를 알 수 있도록 순서대로 기록.
+		_matPropConstantBufferList->_varRecord.push_back(shaderVarDesc->Name);
 
 		if (shaderTypeDesc->Type == D3D_SVT_BOOL && tCount == 1)
 		{
@@ -170,6 +204,10 @@ namespace Pg
 						TexturesVariableProp tProp;
 						tProp._name = tBindDesc.Name;
 						tProp._registerCnt = tBindDesc.BindPoint;
+
+						//순서를 알기 위해서 투입.
+						_matPropTexturesList->_varRecord.push_back(tBindDesc.Name);
+
 						if (SUPPORTED_MIN_TEXTURE_RETURN_TYPE_ENUM <= tBindDesc.ReturnType &&
 							SUPPORTED_MAX_TEXTURE_RETURN_TYPE_ENUM >= tBindDesc.ReturnType)
 						{

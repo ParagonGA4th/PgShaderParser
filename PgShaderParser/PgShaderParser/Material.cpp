@@ -1,6 +1,10 @@
 #include "Material.h"
+#include "XMLParser.h"
+#include "TextHelper.h"
 #include <cassert>
 #include <filesystem>
+
+#include "pugixml.hpp"
 
 namespace Pg
 {
@@ -23,9 +27,16 @@ namespace Pg
 		return _ps;
 	}
 
-	bool Material::Generate()
+	bool Material::Generate(const std::wstring& filePath)
 	{
+		pugi::xml_document* tXMLDoc = XMLParser::MakeXMLFromMaterial(this);
+		XMLParser::WriteXMLFileToWindows(TextHelper::WStringToAnsi(filePath), tXMLDoc);
 		return true;
+	}
+
+	void Material::SetFilePath(const std::wstring& fPath)
+	{
+		_filePath = fPath;
 	}
 
 	std::wstring Material::GetFilePath()

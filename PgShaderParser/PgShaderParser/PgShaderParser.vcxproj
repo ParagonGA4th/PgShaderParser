@@ -151,10 +151,12 @@
     <ClCompile Include="PgApp.cpp" />
     <ClCompile Include="TexturesPropertyList.cpp" />
     <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="XMLParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseShader.h" />
     <ClInclude Include="D3DHelper.h" />
+    <ClInclude Include="EnumHelper.h" />
     <ClInclude Include="imgui_stdlib.h" />
     <ClInclude Include="ShaderPath.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -184,6 +186,7 @@
     <ClInclude Include="PgApp.h" />
     <ClInclude Include="TexturesPropertyList.h" />
     <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="XMLParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

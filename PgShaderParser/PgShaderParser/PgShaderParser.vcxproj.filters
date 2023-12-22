@@ -4,9 +4,6 @@
     <Filter Include="Entry">
       <UniqueIdentifier>{0d5e584e-f846-4e5b-834d-437cfdb1cb00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PugiXML">
-      <UniqueIdentifier>{a52df5d4-7bb5-4775-a2b2-c13c20ce7ab4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="IMGUI">
       <UniqueIdentifier>{987f2a9a-92b4-4b98-baa9-ba4cc65eca86}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,12 @@
     <Filter Include="Helpers\D3DHelper">
       <UniqueIdentifier>{d76d1c0b-0ead-4779-b7d9-d3295df5595b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XMLParser">
+      <UniqueIdentifier>{2f7c59ce-b93b-4e49-95ff-218beb2f425b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLParser\PugiXML">
+      <UniqueIdentifier>{a52df5d4-7bb5-4775-a2b2-c13c20ce7ab4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,7 +85,7 @@
       <Filter>IMGUI</Filter>
     </ClCompile>
     <ClCompile Include="pugixml.cpp">
-      <Filter>PugiXML</Filter>
+      <Filter>XMLParser\PugiXML</Filter>
     </ClCompile>
     <ClCompile Include="TextHelper.cpp">
       <Filter>Helpers\TextHelper</Filter>
@@ -114,6 +117,9 @@
     <ClCompile Include="imgui_stdlib.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
+    <ClCompile Include="XMLParser.cpp">
+      <Filter>XMLParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PgApp.h">
@@ -144,10 +150,10 @@
       <Filter>IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="pugiconfig.hpp">
-      <Filter>PugiXML</Filter>
+      <Filter>XMLParser\PugiXML</Filter>
     </ClInclude>
     <ClInclude Include="pugixml.hpp">
-      <Filter>PugiXML</Filter>
+      <Filter>XMLParser\PugiXML</Filter>
     </ClInclude>
     <ClInclude Include="TextHelper.h">
       <Filter>Helpers\TextHelper</Filter>
@@ -190,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="imgui_stdlib.h">
       <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLParser.h">
+      <Filter>XMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumHelper.h">
+      <Filter>Helpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

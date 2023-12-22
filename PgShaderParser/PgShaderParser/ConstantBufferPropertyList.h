@@ -24,12 +24,20 @@ namespace Pg
 
 		void SetConstantBufferName(const std::string& cBufName);
 		std::string GetConstantBufferName();
+
+		void SetRegisterNumberCount(unsigned int regNum);
+		unsigned int GetRegisterNumberCount();
+		
 	public:
 	private:
 		size_t _byteCount = 0;
 		std::string _constantBufferName;
+		unsigned int _registerNumber = 0;
 
 	public:
+		//Variable의 Index대로 들어오는 variable string을 저장한다.
+		std::vector<std::string> _varRecord;
+
 		//차례로 Variable Name / Value
 		std::vector<std::pair<ConstantBufferVariableProp, bool>>		_boolPropList;
 		std::vector<std::pair<ConstantBufferVariableProp, unsigned int>> _uintPropList;

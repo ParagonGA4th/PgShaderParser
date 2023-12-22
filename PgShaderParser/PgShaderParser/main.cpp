@@ -107,14 +107,14 @@ int main(int, char**)
 			}
 			ImGui::PopFont();
 
-			ImGui::PushFont(bigFont);
-			ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.2f, 0.1f, 1.f });
-			if (ImGui::Button(T_KR("매터리얼 생성"), ImVec2(120.f, 37.5f)))
-			{
-				//tApp->ResetEditorButtonPressed();
-			}
-			ImGui::PopFont();
-			ImGui::PopStyleColor();
+			//ImGui::PushFont(bigFont);
+			//ImGui::PushStyleColor(ImGuiCol_Button, { 0.1f, 0.2f, 0.1f, 1.f });
+			//if (ImGui::Button(T_KR("매터리얼 생성"), ImVec2(120.f, 37.5f)))
+			//{
+			//	//tApp->ResetEditorButtonPressed();
+			//}
+			//ImGui::PopFont();
+			//ImGui::PopStyleColor();
 
 			ImGui::PopStyleColor();
 			ImGui::PopStyleColor();
@@ -137,25 +137,25 @@ int main(int, char**)
 
 			//Render Buttons
 			ImGui::PushFont(bigFont);
-			if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 37.5f)))
-			{
-				tApp->OpenMaterialButtonPressed();
-			}
-			ImGui::SameLine();
+			//if (ImGui::Button(T_KR("매터리얼 열기"), ImVec2(150.f, 37.5f)))
+			//{
+			//	tApp->OpenMaterialButtonPressed();
+			//}
+			//ImGui::SameLine();
 			if (ImGui::Button(T_KR("저장"), ImVec2(150.f, 37.5f)))
-			{
-				tApp->SaveMaterialButtonPressed();
-			}
-			ImGui::SameLine();
-			if (ImGui::Button(T_KR("새 매터리얼"), ImVec2(150.f, 37.5f)))
 			{
 				tApp->NewMaterialButtonPressed();
 			}
-			if (ImGui::Button(T_KR("다른 이름으로 저장"), ImVec2(150.f, 37.5f)))
-			{
-				tApp->SaveAsMaterialButtonPressed();
-			}
 			ImGui::SameLine();
+			//if (ImGui::Button(T_KR("새 매터리얼"), ImVec2(150.f, 37.5f)))
+			//{
+			//	tApp->NewMaterialButtonPressed();
+			//}
+			//if (ImGui::Button(T_KR("다른 이름으로 저장"), ImVec2(150.f, 37.5f)))
+			//{
+			//	tApp->SaveAsMaterialButtonPressed();
+			//}
+			//ImGui::SameLine();
 			if (ImGui::Button("Vertex Shader", ImVec2(150.f, 37.5f)))
 			{
 				tApp->OpenShaderButtonPressed(Pg::eShaderType::_VS);

@@ -14,11 +14,12 @@ namespace Pg
 	public:
 		Material();
 
+		void SetFilePath(const std::wstring& fPath);
 		std::wstring GetFilePath();
 		std::wstring GetFileName();
 	
-		bool SetVertexShader(VertexShader* shader) { _vs = shader; }
-		bool SetPixelShader(PixelShader* shader) { _ps = shader; }
+		void SetVertexShader(VertexShader* shader) {  _vs = shader; }
+		void SetPixelShader(PixelShader* shader) { _ps = shader; }
 
 		bool IsVSActive() { return _vs != nullptr; }
 		bool IsPSActive() { return _ps != nullptr; }
@@ -27,7 +28,7 @@ namespace Pg
 		PixelShader* ConfideGetPixelShader();
 
 		//성공 여부 반환.
-		bool Generate();
+		bool Generate(const std::wstring& filePath);
 
 	private:
 		std::wstring _filePath;
