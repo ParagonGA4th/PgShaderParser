@@ -224,7 +224,7 @@ namespace Pg
 			for (int i = 0; i < texPropList->_varRecord.size(); i++)
 			{
 				pugi::xml_node tVarOrder = tVariableOrderNode.append_child("Case");
-				tVariableOrderNode.append_child(pugi::node_pcdata).set_value(texPropList->_varRecord[i].c_str());
+				tVarOrder.append_child(pugi::node_pcdata).set_value(texPropList->_varRecord[i].c_str());
 			}
 		}
 
