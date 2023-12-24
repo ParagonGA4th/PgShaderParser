@@ -74,8 +74,9 @@ namespace Pg
 
 			for (int i = 0; i < cbufPropList->_varRecord.size(); i++)
 			{
+				//231224 ¿À·ù FIX.
 				pugi::xml_node tVarOrder = cbufferVariableOrderNode.append_child(std::to_string(i).c_str());
-				cbufferVariableOrderNode.append_child(pugi::node_pcdata).set_value(cbPropList->_varRecord[i].c_str());
+				tVarOrder.append_child(pugi::node_pcdata).set_value(cbPropList->_varRecord[i].c_str());
 			}
 		}
 
