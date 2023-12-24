@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<PgMaterial>
+	<VertexShader>
+		<FileName>AppendObjectTestVS.cso</FileName>
+		<ConstantBuffer>
+			<BufferName>cbAppendsObjectVS</BufferName>
+			<ByteCount>96</ByteCount>
+			<RegisterCount>8</RegisterCount>
+			<VariableOrder>
+				<Case>tTest</Case>
+				<Case>tUintExample</Case>
+				<Case>tIntExample</Case>
+				<Case>tFloat1Test</Case>
+				<Case>tFloat2Test</Case>
+				<Case>tFloat3Test</Case>
+				<Case>tFloat4Test</Case>
+				<Case>tColor4Test1</Case>
+				<Case>tColor4Test2</Case>
+			</VariableOrder>
+			<Variables>
+				<Case Name="tTest" Type="bool" Size="4" StartOffset="0">
+					<x>0</x>
+				</Case>
+				<Case Name="tUintExample" Type="uint" Size="4" StartOffset="4">
+					<x>1</x>
+				</Case>
+				<Case Name="tIntExample" Type="int" Size="4" StartOffset="8">
+					<x>2</x>
+				</Case>
+				<Case Name="tFloat1Test" Type="float" Size="4" StartOffset="12">
+					<x>123.000000</x>
+				</Case>
+				<Case Name="tFloat2Test" Type="float2" Size="8" StartOffset="16">
+					<x>45.000000</x>
+					<y>67.000000</y>
+				</Case>
+				<Case Name="tFloat3Test" Type="float3" Size="12" StartOffset="32">
+					<x>89.000000</x>
+					<y>12.000000</y>
+					<z>23.000000</z>
+				</Case>
+				<Case Name="tFloat4Test" Type="float4" Size="16" StartOffset="48">
+					<x>34.000000</x>
+					<y>45.000000</y>
+					<z>0.000000</z>
+					<w>0.000000</w>
+				</Case>
+				<Case Name="tColor4Test1" Type="float4" Size="16" StartOffset="64">
+					<x>56.000000</x>
+					<y>67.000000</y>
+					<z>0.000000</z>
+					<w>0.000000</w>
+				</Case>
+				<Case Name="tColor4Test2" Type="float4" Size="16" StartOffset="80">
+					<x>78.000000</x>
+					<y>89.000000</y>
+					<z>0.000000</z>
+					<w>0.000000</w>
+				</Case>
+			</Variables>
+		</ConstantBuffer>
+		<Textures>
+			<VariableOrder />
+			<Variables />
+		</Textures>
+	</VertexShader>
+	<PixelShader>
+		<FileName>AppendObjectTestPS.cso</FileName>
+		<ConstantBuffer>
+			<BufferName>cbAppendsObject</BufferName>
+			<ByteCount>16</ByteCount>
+			<RegisterCount>8</RegisterCount>
+			<VariableOrder>
+				<Case>isOne</Case>
+			</VariableOrder>
+			<Variables>
+				<Case Name="isOne" Type="bool" Size="4" StartOffset="0">
+					<x>0</x>
+				</Case>
+			</Variables>
+		</ConstantBuffer>
+		<Textures>
+			<VariableOrder>
+				<Case />t2_DiffuseTexture<Case />t2_DiffuseTexture2</VariableOrder>
+			<Variables>
+				<Case Name="t2_DiffuseTexture" Type="Texture2D" ResourceReturnType="PG_RETURN_TYPE_FLOAT" RegisterCount="25" Value="Testing1" />
+				<Case Name="t2_DiffuseTexture2" Type="Texture2D" ResourceReturnType="PG_RETURN_TYPE_FLOAT" RegisterCount="26" Value="Test2" />
+			</Variables>
+		</Textures>
+	</PixelShader>
+</PgMaterial>

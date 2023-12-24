@@ -75,7 +75,7 @@ namespace Pg
 			for (int i = 0; i < cbufPropList->_varRecord.size(); i++)
 			{
 				//231224 오류 FIX.
-				pugi::xml_node tVarOrder = cbufferVariableOrderNode.append_child(std::to_string(i).c_str());
+				pugi::xml_node tVarOrder = cbufferVariableOrderNode.append_child("Case");
 				tVarOrder.append_child(pugi::node_pcdata).set_value(cbPropList->_varRecord[i].c_str());
 			}
 		}
@@ -88,7 +88,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_boolPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_boolPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "bool";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_boolPropList[i].first._size;
@@ -102,7 +102,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_uintPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_uintPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "uint";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_uintPropList[i].first._size;
@@ -116,7 +116,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_intPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_intPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "int";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_intPropList[i].first._size;
@@ -130,7 +130,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_floatPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_floatPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "float";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_floatPropList[i].first._size;
@@ -144,7 +144,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_vec2PropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_vec2PropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "float2";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_vec2PropList[i].first._size;
@@ -164,7 +164,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_vec3PropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_vec3PropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "float3";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_vec3PropList[i].first._size;
@@ -188,7 +188,7 @@ namespace Pg
 		for (int i = 0; i < cbPropList->_vec4PropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = cbufferVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = cbPropList->_vec4PropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "float4";
 			cbufferVarExampleNode.append_attribute("Size") = cbPropList->_vec4PropList[i].first._size;
@@ -223,7 +223,7 @@ namespace Pg
 
 			for (int i = 0; i < texPropList->_varRecord.size(); i++)
 			{
-				pugi::xml_node tVarOrder = tVariableOrderNode.append_child(std::to_string(i).c_str());
+				pugi::xml_node tVarOrder = tVariableOrderNode.append_child("Case");
 				tVariableOrderNode.append_child(pugi::node_pcdata).set_value(texPropList->_varRecord[i].c_str());
 			}
 		}
@@ -234,7 +234,7 @@ namespace Pg
 		for (int i = 0; i < texPropList->_texture1DPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = texPropList->_texture1DPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "Texture1D";
 			cbufferVarExampleNode.append_attribute("ResourceReturnType") = EnumHelper::ToString(texPropList->_texture1DPropList[i].first._resReturnType).c_str();
@@ -246,7 +246,7 @@ namespace Pg
 		for (int i = 0; i < texPropList->_texture2DPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = texPropList->_texture2DPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "Texture2D";
 			cbufferVarExampleNode.append_attribute("ResourceReturnType") = EnumHelper::ToString(texPropList->_texture2DPropList[i].first._resReturnType).c_str();
@@ -258,7 +258,7 @@ namespace Pg
 		for (int i = 0; i < texPropList->_texture2DArrayPropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = texPropList->_texture2DArrayPropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "Texture2DArray";
 			cbufferVarExampleNode.append_attribute("ResourceReturnType") = EnumHelper::ToString(texPropList->_texture2DArrayPropList[i].first._resReturnType).c_str();
@@ -270,7 +270,7 @@ namespace Pg
 		for (int i = 0; i < texPropList->_textureCubePropList.size(); i++)
 		{
 			//파싱해서 읽어들일 때 -> Index를 노드의 이름으로 저장해서 늘어날 여지가 있게 한다.
-			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child(std::to_string(i + totalVarCount).c_str());
+			pugi::xml_node cbufferVarExampleNode = textureVarNode.append_child("Case");
 			cbufferVarExampleNode.append_attribute("Name") = texPropList->_textureCubePropList[i].first._name.c_str();
 			cbufferVarExampleNode.append_attribute("Type") = "TextureCube";
 			cbufferVarExampleNode.append_attribute("ResourceReturnType") = EnumHelper::ToString(texPropList->_textureCubePropList[i].first._resReturnType).c_str();
