@@ -121,7 +121,12 @@ namespace Pg
 			}
 		}
 
-		assert(tOnceWasEight && "원하는 CBuffer의 정보를 한번도 읽어오지 못했다는 말");
+		//assert(tOnceWasEight);
+		if (!tOnceWasEight)
+		{
+			//클라이언트 딴 상수버퍼가 안 쓰였다는 얘기.
+			return;
+		}
 
 		//완료되었으면, Material에 필요한 값을 받아와서 설정한다.
 		_matPropConstantBufferList->SetByteCount(tConstantBufferDesc.Size);
