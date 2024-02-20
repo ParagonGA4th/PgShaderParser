@@ -91,6 +91,10 @@ namespace Pg
 		D3D11_SHADER_INPUT_BIND_DESC tShaderInputBindDesc;
 		ZeroMemory(&tShaderInputBindDesc, sizeof(D3D11_SHADER_INPUT_BIND_DESC));
 
+		bool tOnceWasEight = false;
+		//std::vector<unsigned int> tTempVec;
+		//셰이더는 사용되지 않으면 .cso에 포함시키지 않음. 이 때문에 오류 발생!
+
 		//클라이언트 딴 Constant Buffer를 건드리지 않고 가져오기 위해서.
 		for (int i = 0; i < D3D11_COMMONSHADER_CONSTANT_BUFFER_HW_SLOT_COUNT; i++)
 		{
@@ -98,19 +102,26 @@ namespace Pg
 			cbReflection = _reflection->GetConstantBufferByIndex(i);
 
 			ZeroMemory(&tConstantBufferDesc, sizeof(D3D11_SHADER_BUFFER_DESC));
-			HR(cbReflection->GetDesc(&tConstantBufferDesc));
+			//HR(cbReflection->GetDesc(&tConstantBufferDesc));
+			if (FAILED(cbReflection->GetDesc(&tConstantBufferDesc))) 
+			{
+				continue;
+			}
 
 			//Register Number 기록.
 			ZeroMemory(&tShaderInputBindDesc, sizeof(D3D11_SHADER_INPUT_BIND_DESC));
 			HR(_reflection->GetResourceBindingDescByName(tConstantBufferDesc.Name, &tShaderInputBindDesc));
-
+			
 			//if (tShaderInputBindDesc.BindPoint >= CBUFFER_CLIENT_START_REGISTER)
 			if (tShaderInputBindDesc.BindPoint == CBUFFER_CLIENT_START_REGISTER)
 			{
 				//하나라도 엔진에 한정적인 Register Number의 상수 버퍼가 있다면, 바로 나오기!
+				tOnceWasEight = true;
 				break;
 			}
 		}
+
+		assert(tOnceWasEight && "원하는 CBuffer의 정보를 한번도 읽어오지 못했다는 말");
 
 		//완료되었으면, Material에 필요한 값을 받아와서 설정한다.
 		_matPropConstantBufferList->SetByteCount(tConstantBufferDesc.Size);
