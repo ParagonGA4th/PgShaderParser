@@ -76,7 +76,9 @@ namespace Pg
 
 		//나중에 파이프라인이 바뀌게 된다면, 여러 개가 가능해질 수도 있음.
 		//아니면 디폴트로 적용하는 CBuffer가 있다면, 이 역시 반영되어서 바뀌어야 한다.
-		assert(totalNumCBuffers == 1 && "Paragon Engine : 상수 버퍼 하나짜리로 Fix (클라이언트 딴)");
+		//-> 240220 : 이제 무조건 b8만 사용할 수 있게 바뀌었다!
+		// 밑 Assert는 엔진 딴 Shader의 CBuffer까지 포함하기 때문에.
+		//assert(totalNumCBuffers == 1 && "Paragon Engine : 상수 버퍼 하나짜리로 Fix (클라이언트 딴)");
 
 		//Constant Buffer는 하나 가져오는 것으로 하드코딩.
 		//다만, 무조건 엔진 딴의 CBuffer가 추가된다면, 이를 갖고 오면 안된다.
@@ -102,7 +104,8 @@ namespace Pg
 			ZeroMemory(&tShaderInputBindDesc, sizeof(D3D11_SHADER_INPUT_BIND_DESC));
 			HR(_reflection->GetResourceBindingDescByName(tConstantBufferDesc.Name, &tShaderInputBindDesc));
 
-			if (tShaderInputBindDesc.BindPoint >= CBUFFER_CLIENT_START_REGISTER)
+			//if (tShaderInputBindDesc.BindPoint >= CBUFFER_CLIENT_START_REGISTER)
+			if (tShaderInputBindDesc.BindPoint == CBUFFER_CLIENT_START_REGISTER)
 			{
 				//하나라도 엔진에 한정적인 Register Number의 상수 버퍼가 있다면, 바로 나오기!
 				break;

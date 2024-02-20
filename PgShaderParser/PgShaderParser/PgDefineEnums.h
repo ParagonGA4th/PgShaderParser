@@ -3,6 +3,7 @@
 
 //기본적으로 유저가 사용할 수 있는 레지스터의 시작이 t25이다.
 #define TEXTURES_CLIENT_START_REGISTER 25
+//Material 딴에서 유일하게 조작할 수 있는 CBuffer의 Register이다.
 #define CBUFFER_CLIENT_START_REGISTER 8
 #define SUPPORTED_MIN_TEXTURE_RETURN_TYPE_ENUM 1
 #define SUPPORTED_MAX_TEXTURE_RETURN_TYPE_ENUM 5
