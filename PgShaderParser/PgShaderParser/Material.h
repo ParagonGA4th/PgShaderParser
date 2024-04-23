@@ -24,6 +24,9 @@ namespace Pg
 		bool IsVSActive() { return _vs != nullptr; }
 		bool IsPSActive() { return _ps != nullptr; }
 
+		bool GetIsUseAlphaBlending() { return _isUseAlphaBlending; }
+		void SetIsUseAlphaBlending(bool val) { _isUseAlphaBlending = val; }
+
 		VertexShader* ConfideGetVertexShader();
 		PixelShader* ConfideGetPixelShader();
 
@@ -36,6 +39,7 @@ namespace Pg
 	private:
 		VertexShader* _vs = nullptr;
 		PixelShader* _ps = nullptr;
+		bool _isUseAlphaBlending = false;
 	};
 }
 

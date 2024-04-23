@@ -31,6 +31,7 @@ namespace Pg
 		//호출시점에서 
 		ResetMaterial();
 		_material = new Material();
+		_material->SetIsUseAlphaBlending(_isUseAlphaBlending);
 		_material->SetFilePath(filePath);
 		_material->SetVertexShader(_editedVS);
 		_material->SetPixelShader(_editedPS);
@@ -95,6 +96,9 @@ namespace Pg
 		ResetMaterial();
 		ResetVertexShader();
 		ResetPixelShader();
+
+		//얘는 그냥 따로 리셋.
+		_isUseAlphaBlending = false;
 	}
 
 	Pg::Material* ShaderParser::GetMaterial()
@@ -110,6 +114,11 @@ namespace Pg
 	Pg::PixelShader* ShaderParser::GetPixelShader()
 	{
 		return _editedPS;
+	}
+
+	bool* ShaderParser::GetIsUseAlphaBlendingPointer()
+	{
+		return &_isUseAlphaBlending;
 	}
 
 }

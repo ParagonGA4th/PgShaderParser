@@ -17,6 +17,10 @@ namespace Pg
 		pugi::xml_document* doc = new pugi::xml_document;
 		pugi::xml_node rootNode = doc->append_child("PgMaterial");
 		{
+			pugi::xml_node alphaNode = rootNode.append_child("IsUseAlphaBlending");
+			alphaNode.append_child(pugi::node_pcdata).set_value(std::to_string(static_cast<int>(mat->GetIsUseAlphaBlending())).c_str());
+		}
+		{
 			// Ã¹ ºÐ·ù = Vertex Shader.
 			VertexShader* vs = mat->ConfideGetVertexShader();
 			pugi::xml_node vsNode = rootNode.append_child("VertexShader");

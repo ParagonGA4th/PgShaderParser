@@ -189,6 +189,9 @@ int main(int, char**)
 			}
 			ImGui::Text(T_KR_W(tCurMaterialPath));
 
+			//Alpha Mapping 쓸건지 체크리스트
+			ImGui::Checkbox("Use Alpha Blending/Transparency", tApp->GetShaderParser()->GetIsUseAlphaBlendingPointer());
+
 			ImGui::PopFont();
 			ImGui::PopStyleColor();
 			ImGui::PopStyleColor();

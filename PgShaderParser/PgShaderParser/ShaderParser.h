@@ -36,12 +36,12 @@ namespace Pg
 		Material* GetMaterial();
 		VertexShader* GetVertexShader();
 		PixelShader* GetPixelShader();
-
+		bool* GetIsUseAlphaBlendingPointer();
 	private:
 		Material* _material = nullptr;
 		VertexShader* _editedVS = nullptr;
 		PixelShader* _editedPS = nullptr;
-
+		bool _isUseAlphaBlending = false;
 	};
 }
 
